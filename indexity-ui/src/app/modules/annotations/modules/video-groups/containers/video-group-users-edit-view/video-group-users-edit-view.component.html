@@ -1,0 +1,59 @@
+<div>
+  <mat-toolbar>
+    <div class="left">
+      <button (click)="accessGroupIndex()" mat-stroked-button> <mat-icon>chevron_left</mat-icon> </button>
+    </div>
+  </mat-toolbar>
+
+  <div class="main-content">
+    <div class="user-list">
+      <h3>VIDEO GROUP USERS</h3>
+
+      <app-search-field
+        class="search-field"
+        [initialValue]=""
+        (search)="onGroupUsersFilter($event)"
+        [placeholder]="'Search ' + videoGroup?.name + ' users'"
+      ></app-search-field>
+
+      <div
+        class="scrollable-list"
+        infinite-scroll
+        (scrolled)="loadNextGroupUsersBatch()"
+        [scrollWindow]="false"
+      >
+        <app-user-item
+          *ngFor="let user of groupUsers$ | async; trackBy: usersTrackByFn"
+          [user]="user"
+          [isInGroup]="true"
+          (removeFromGroup)="onRemoveFromGroup($event)"
+        ></app-user-item>
+      </div>
+    </div>
+
+    <div class="user-list">
+      <h3>USERS</h3>
+
+      <app-search-field
+        class="search-field"
+        (search)="onUsersFilter($event)"
+        [placeholder]="'Search Indexity users'"
+      ></app-search-field>
+
+      <div
+        class="scrollable-list"
+        infinite-scroll
+        (scrolled)="loadNextUsersBatch()"
+        [scrollWindow]="false"
+      >
+        <app-user-item
+          *ngFor="let user of users$ | async; trackBy: usersTrackByFn"
+          [user]="user"
+          [isInGroup]="false"
+          (addToGroup)="onAddToGroup($event)"
+        ></app-user-item>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,56 @@
+env: dev
+dockerConfigJson: put-your-base64-encoded-docker-json-configuration-here
+domainName: dev.indexity.local
+protocol: https
+port: 443
+dbVolumeMountPath: /path/dev/indexity-db_data
+apiVolumeMountPath: /path/dev/indexity-storage
+enableTls: false
+certServer: put-your-base64-encoded-certificat
+certKey: put-your-base64-encoded-certificat-key
+trackerName: 'Automatic Tracker'
+trackerEmail: put-tracker-email-here
+trackerPassword: put-tracker-password-here
+
+indexityUiImage:
+  registry: registry.local
+  repo: indexity/indexity-ui
+  tag: latest
+  apiConfigBaseUrl: https://api.example.com
+  socketConfigBaseUrl: https://api.example.com
+  jwtSettingsWhitelistedDomains: "api.example.com|api.example2.com"
+
+indexityApiImage:
+  registry: registry.local
+  repo: indexity/indexity-api
+  tag: latest
+  enableSwagger: true
+  adminEmail: indexity-support@indexity.local
+  smtpHost: postfix-service
+  smtpPort: 25
+  smtpUseSsl: false
+  mailFrom: indexity-support@indexity.local
+
+indexityAdminImage:
+  registry: registry.local
+  repo: indexity/indexity-admin-app
+  tag: latest
+  apiConfigBaseUrl: https://api.example.com
+  socketConfigBaseUrl: https://api.example.com
+
+indexityTrackerImage:
+  registry: registry.local
+  repo: indexity/indexity-structure-tracker
+  tag: latest
+
+postfixImage:
+  registry: registry.local
+  repo: indexity/docker-postfix
+  tag: 1.0.0
+  smtpServer: mail.local
+  smtpPort: 587
+  username: indexity-support@local
+  password: put-smtp-password-here
+  serverHostname: local
+  overwriteFrom: indexity-support@indexity.local
+  senderCanonical: '/.+/ indexity-support@local'

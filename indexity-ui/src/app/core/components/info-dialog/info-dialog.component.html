@@ -1,0 +1,23 @@
+<h2 *ngIf="title" style="margin-bottom: 15px">{{title}}</h2>
+
+<mat-dialog-content>
+    <span *ngIf="message" [innerHTML]="message"></span>
+</mat-dialog-content>
+
+<mat-dialog-actions class="actions">
+  <button
+    *ngIf="askUser"
+    mat-flat-button
+    [mat-dialog-close]="false"
+  >
+    Cancel
+  </button>
+  <button
+    type="submit"
+    mat-flat-button
+    color="accent"
+    [mat-dialog-close]="true"
+  >
+    Ok
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,74 @@
+<div class="videos">
+
+  <app-video-list-header
+    *ngIf="showHeader"
+    [canManageVideos]="canManageVideos"
+    [inProgress]="uploading"
+    [currentFilter]="currentFilter"
+    [labels]="searchResults$ | async"
+    (filter)="onFilter($event)"
+    (upload)="onUpload($event)"
+  ></app-video-list-header>
+
+  <div
+    *ngIf="videos"
+    #container
+    class="card-items-container"
+    cdkDropList
+    (cdkDropListDropped)="itemDropped.emit($event)"
+    infinite-scroll
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+  >
+    <app-video-card-item
+      *ngFor="let video of videos; trackBy: videoTrackBy"
+      cdkDrag
+      (cdkDragEnded)="dragEnded.emit($event)"
+      [cdkDragData]="video.id"
+      [cdkDragDisabled]="!selectMultiple"
+      (cdkDragStarted)="onDragStart($event)"
+      [ngClass]="{sm: (isSMLayout$ | async) || forceSmLayout }"
+      class="video-item-row"
+      (click)="onVideoClick(video)"
+      [isSelected]="selectedVideos.includes(video.id)"
+      [enableVideoAccess]="enableVideoAccess"
+      [enableGroupManagement]="enableGroupManagement"
+      [groupManagementMode]="isInGroup"
+      [video]="video"
+      [enableActions]="enableActions"
+      [showStats]="showStats"
+      [showStatus]="showStatus"
+      [videoStats]="videoStats[video.id]"
+      [videoGroups]="videoGroups && videoGroups[video.id] ? videoGroups[video.id] : []"
+      [displayAdminActions]="canManageVideos"
+      [isBookmarked]="isBookmarked(video.id)"
+      [attr.data-cy]="'video-' + video.id + '-item'"
+      [isVideoOwner]="currentUserId === video.userId"
+      (bookmark)="onBookmark($event.video.id, $event.bookmarked)"
+      (rename)="onRenameVideo($event)"
+      (remove)="onDeleteVideo($event)"
+      (addToGroup)="addToGroup.emit($event)"
+      (removeFromGroup)="removeFromGroup.emit($event)"
+      (retryVideoStats)="retryVideoStats.emit($event)"
+      (annotationStatus)="onSetAnnotationProgressState($event)"
+    >
+      <div class="layout-item-drag-preview" *cdkDragPreview>
+        <app-video-card-item
+          [ngClass]="{sm: (isSMLayout$ | async) || forceSmLayout }"
+          *ngFor="let video of selectedVideoItems; trackBy: videoTrackBy"
+          [video]="video"
+          [enableActions]="enableActions"
+          [showStats]="showStats"
+          [showStatus]="showStatus"
+        >
+        </app-video-card-item>
+      </div>
+    </app-video-card-item>
+  </div>
+
+</div>
+
+
+<ng-template #loading>
+  <mat-progress-bar color="accent" [mode]="'indeterminate'"></mat-progress-bar>
+</ng-template>

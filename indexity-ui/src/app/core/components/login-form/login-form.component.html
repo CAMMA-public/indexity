@@ -1,0 +1,37 @@
+<form (keyup.enter)="submitForm(form.value)" [formGroup]="form" class="login-form">
+
+  <h2>LOGIN</h2>
+
+  <input
+    [ngClass]="{'error': form.controls['email'].errors && form.controls['email'].touched}"
+    formControlName="email"
+    name="email"
+    class="full-width"
+    type="email"
+    placeholder="Email"
+  />
+  <span *ngIf="form.controls['email'].hasError('email')" class="error-message">
+    Invalid email format
+  </span>
+  <input
+    [ngClass]="{'error': form.controls['password'].errors && form.controls['password'].touched}"
+    formControlName="password"
+    name="password"
+    class="full-width"
+    type="password"
+    placeholder="Password"/>
+
+  <button
+    [disabled]="!form.valid || locked"
+    (click)="submitForm(form.value)"
+    type="submit"
+    data-cy="login-btn"
+    class="login-button"
+    mat-flat-button
+    color="accent"
+  >
+    LOGIN
+  </button>
+
+  <span class="error-message api-message" *ngIf="error">{{ error }}</span>
+</form>

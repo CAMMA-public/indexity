@@ -1,0 +1,133 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "importHelpers": true,
+    "module": "esnext",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@app/videos/components/*": [
+        "src/app/modules/annotations/modules/videos/components/*"
+      ],
+      "@app/videos/components": [
+        "src/app/modules/annotations/modules/videos/components/index"
+      ],
+      "@app/videos/services/*": [
+        "src/app/modules/annotations/modules/videos/services/*"
+      ],
+      "@app/annotations/components/*": [
+        "src/app/modules/annotations/common/components/*"
+      ],
+      "@app/annotations/services/*": [
+        "src/app/modules/annotations/common/services/*"
+      ],
+      "@app/annotations/models/*": [
+        "src/app/modules/annotations/common/models/*"
+      ],
+      "@app/annotations/helpers/*": [
+        "src/app/modules/annotations/common/helpers/*"
+      ],
+      "@app/annotations/common/modules/*": [
+        "src/app/modules/annotations/common/modules/*"
+      ],
+      "@app/video-groups/*": [
+        "src/app/modules/annotations/modules/video-groups/*"
+      ],
+      "@app/videos/*": [
+        "src/app/modules/annotations/modules/videos/*"
+      ],
+      "@app/annotations/*": [
+        "src/app/modules/annotations/*"
+      ],
+      "@app/views/*": [
+        "src/app/modules/*"
+      ],
+      "@app/views": [
+        "src/app/modules/index"
+      ],
+      "@app/env": [
+        "src/environments/environment"
+      ],
+      "@app/modules/*": [
+        "src/app/core/modules/*"
+      ],
+      "@app/modules": [
+        "src/app/core/modules/index"
+      ],
+      "@app/models/*": [
+        "src/app/core/models/*"
+      ],
+      "@app/models": [
+        "src/app/core/models/index"
+      ],
+      "@app/helpers": [
+        "src/app/core/helpers"
+      ],
+      "@app/helpers/*": [
+        "src/app/core/helpers/*"
+      ],
+      "@app/directives/*": [
+        "src/app/core/directives/*"
+      ],
+      "@app/services/*": [
+        "src/app/core/services/*"
+      ],
+      "@app/services": [
+        "src/app/core/services/index"
+      ],
+      "@app/main-store/*": [
+        "src/app/store/*"
+      ],
+      "@app/main-store": [
+        "src/app/store/index"
+      ],
+      "@app/settings-store": [
+        "src/app/modules/annotations/store/settings/index"
+      ],
+      "@app/settings-store/*": [
+        "src/app/modules/annotations/store/settings/*"
+      ],
+      "@app/videos-store/*": [
+        "src/app/modules/annotations/modules/videos/store/*"
+      ],
+      "@app/videos-store": [
+        "src/app/modules/annotations/modules/videos/store/index"
+      ],
+      "@app/annotations-store/*": [
+        "src/app/modules/annotations/store/annotations/*"
+      ],
+      "@app/annotations-store": [
+        "src/app/modules/annotations/store/annotations/index"
+      ],
+      "@app/annotation-labels-store/*": [
+        "src/app/modules/annotations/store/annotation-labels/*"
+      ],
+      "@app/annotation-labels-store": [
+        "src/app/modules/annotations/store/annotation-labels/index"
+      ],
+      "@indexity/annotations": [
+        "projects/indexity-annotations/src"
+      ],
+      "angular-configuration-module": [
+        "projects/angular-configuration-module/src"
+      ],
+      "ngx-event-timeline": [
+        "projects/ngx-event-timeline/src"
+      ]
+    }
+  }
+}

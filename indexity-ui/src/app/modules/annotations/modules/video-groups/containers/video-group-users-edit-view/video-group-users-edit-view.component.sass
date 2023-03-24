@@ -1,0 +1,27 @@
+.main-content
+  display: flex
+  flex-direction: row
+
+.user-list
+  flex: 1
+  margin: 5px
+  h3
+    display: flex
+    justify-content: center
+    height: 5vh
+    margin: 0px
+  .scrollable-list
+    // 93vh: 100vh - mat-toolbar[height]
+    max-height: calc(93vh - 215px)
+    overflow-y: auto
+
+mat-toolbar
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: space-between
+  height: 7vh
+  margin-bottom: 15px
+
+  button
+    margin-right: 10px

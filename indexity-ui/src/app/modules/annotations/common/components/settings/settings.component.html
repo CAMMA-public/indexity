@@ -1,0 +1,50 @@
+<h3 mat-dialog-title> SETTINGS </h3>
+
+<mat-dialog-content>
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header data-cy="annotations-accordion-header">
+        <mat-panel-title>
+          Annotations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-slide-toggle data-cy="activate-json-import-toggle" [(ngModel)]="settings.activateJsonImport" name="surgetrackImport">Activate JSON Import</mat-slide-toggle>
+      <mat-slide-toggle data-cy="activate-json-export-toggle" [(ngModel)]="settings.activateJsonExport" name="export">Activate Export</mat-slide-toggle>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header data-cy="video-accordion-header">
+        <mat-panel-title>
+          Annotations' interpolation
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-slide-toggle data-cy="activate-annotation-interpolation-toggle" [(ngModel)]="settings.activateAnnotationInterpolation" name="interpolation">Activate interpolation</mat-slide-toggle>
+      <span>Compute intermediate positions every <b>{{ settings.annotationInterpolationStep }}</b> ms</span>
+      <mat-slider [disabled]="!settings.activateAnnotationInterpolation" style="width:100%" min="10" max="200" step="10" thumbLabel [(ngModel)]="settings.annotationInterpolationStep"></mat-slider>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header data-cy="video-accordion-header">
+        <mat-panel-title>
+          Video
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span>Set the frame step to <b>1 / {{settings.frameStep}} s</b> (≃ {{(1000 / settings.frameStep).toFixed(2)}} ms)</span>
+      <mat-slider data-cy="frame-step-slider" style="width:100%" min="5" max="60" step="5" thumbLabel [(ngModel)]="settings.frameStep"></mat-slider>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header data-cy="labels-accordion-header">
+        <mat-panel-title>
+          SVG labels
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-slide-toggle data-cy="show-labels-toggle" [(ngModel)]="settings.showLabels" name="showLabels">Show Labels</mat-slide-toggle>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-dialog-content>
+
+<mat-dialog-actions style="float: right;">
+  <button mat-raised-button [mat-dialog-close]="null">Cancel</button>
+  <button data-cy="submit-settings" class="submit" mat-raised-button color="accent" [mat-dialog-close]="settings">Submit</button>
+</mat-dialog-actions>

@@ -1,0 +1,7 @@
+# ignore folders
+dist/
+storage/
+volumes/
+
+# ignore files
+gulpfile.ts

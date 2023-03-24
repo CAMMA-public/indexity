@@ -1,0 +1,66 @@
+.main-container{
+  display: flex;
+  width: 100%;
+}
+
+.ontology-list {
+  width: 100%;
+  max-height: calc(100vh - 132px);
+  padding: 5px;
+}
+
+
+.label-list {
+  width: 100%;  padding: 5px;
+
+}
+
+
+.item-list {
+  max-height: calc(100vh - 215px)
+}
+
+.ontology-item {
+  position: relative;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  animation: fadein 350ms;
+
+
+
+  mat-card-header{
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  mat-card-title {
+    margin-bottom: 10px;
+
+
+  }
+
+
+  .right-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+  }
+}
+
+.ontology-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+

@@ -1,0 +1,10 @@
+export enum VIDEOS_FILTER_TYPE {
+  BY_NAME = 'BY_NAME',
+  BY_ANNOTATION_PROGRESS_STATE = 'BY_ANNOTATION_PROGRESS_STATE',
+  BY_ANNOTATION_LABEL_NAME = 'BY_ANNOTATION_LABEL_NAME',
+}
+
+export interface VideosFilter {
+  type: VIDEOS_FILTER_TYPE;
+  param?: string;
+}

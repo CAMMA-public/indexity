@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  api:
+    image: indexity-tracker:latest
+    ports:
+      - '8084:8084'
+    environment:
+        INDEXITY_API_URL: 'http://localhost:8082'
+        ANNOTATOR_EMAIL: 'automatic@indexity.local'
+        ANNOTATOR_PASSWORD: 'indexity-password'
+        VIDEOS_PATH: 'videos/'
+        SERVER_PORT: 8084
+        TRACK_INTERVAL: 100
+        MOVEMENT_THRESHOLD: 1.5
+    volumes:
+      - /home/avatsaev/DEV/Indexity/indexity-api/storage/videos:/indexity-tracker/videos:ro
+    restart: on-failure:10

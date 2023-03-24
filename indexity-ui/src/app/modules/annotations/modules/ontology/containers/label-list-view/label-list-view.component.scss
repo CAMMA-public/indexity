@@ -1,0 +1,13 @@
+mat-card{
+  margin-bottom: 5px;
+}
+
+.item-list {
+  overflow-y: scroll;
+  max-height: calc(100vh - 15vh - 64px - 5px)
+  //100vh = application full height (= body height)
+  // 15vh = main app toolbar height
+  // 64px = toolbar height
+  //  5px = search bar height
+  // this calculation is necessary in order for the video list container to not overflow (resulting in scrollbar appearance)
+}

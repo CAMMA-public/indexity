@@ -1,0 +1,29 @@
+<div mat-dialog-title class="dialog-title-container">
+  <h3>
+    <mat-icon style="margin-right:7px">info</mat-icon>
+    <span>ABOUT</span></h3>
+  <button mat-icon-button (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <img src="assets/logo.png" alt=""/>
+  <mat-divider></mat-divider>
+  <mat-list dense role="list">
+    <div mat-subheader>Disclaimer</div>
+    <mat-list-item>
+      <span>This application was developed by Ircad France and IHU Strasbourg between 2019 and 2020 within the CONDOR project.<br/>
+      It is not maintained.</span>
+    </mat-list-item>
+    <div mat-subheader>Version</div>
+    <mat-list-item>
+      <b>UI: </b> {{(frontVersion$ | async)}}
+    </mat-list-item>
+    <mat-list-item>
+      <b>API: </b> {{(backVersion$ | async)}}
+    </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+  <p style="text-align: right">Indexity is publicly available under the BSD3-Clause open source license.</p>
+</mat-dialog-content>

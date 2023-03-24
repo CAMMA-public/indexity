@@ -1,0 +1,13 @@
+<div class="main-container" *ngIf="labels$ | async as labels">
+  <app-search-field
+    [initialValue]="groupLabelsFilter$ | async"
+    (search)="onGroupLabelsSearch($event)"
+    [debounce]="0"
+    class="search-field"
+  ></app-search-field>
+
+  <div class="item-list">
+    <app-label-item [label]="l" *ngFor="let l of labels; trackBy: trackByFn"></app-label-item>
+  </div>
+</div>
+

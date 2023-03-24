@@ -1,0 +1,172 @@
+<div
+  class="main-container"
+  [attr.data-cy]="'annotation-item-' + annotation.id"
+  [ngClass]="{'highlighted': highlighted === annotation?.id && !pending, 'pending': pending}"
+  *ngIf="annotation"
+>
+  <div class="header">
+
+
+    <div class="info">
+
+      <div class="color" [ngStyle]="{'background': annotation.label?.color}" >
+
+      </div>
+
+      <div [attr.data-cy]="'annotation-item-' + annotation.id + '-label'" class="title" [title]="annotation.label? annotation.label.name : annotation.description">
+        {{annotation.label? annotation.label.name : annotation.description}}
+      </div>
+    </div>
+
+
+    <div class="actions">
+
+      <div *ngIf="(annotation.label.type === 'structure')">
+        <button
+          *ngIf="!trackerRunning; else spinner"
+          [disabled]="pending"
+          (click)="launchTracking()"
+          mat-icon-button
+          matTooltip="Launch {{ trackerRunningOnSameTrack ? 'another' : '' }} automatic tracking"
+          color="{{ trackerRunningOnSameTrack ? 'warn' : '' }}"
+          matTooltipPosition="before"
+          [matTooltipShowDelay]="400"
+        >
+          <mat-icon> center_focus_weak</mat-icon>
+        </button>
+
+        <ng-template #spinner>
+          <div class="spinner">
+            <mat-spinner aria-label="Tracking in progress" diameter="23"></mat-spinner>
+          </div>
+        </ng-template>
+
+      </div>
+      
+      <button
+        *ngIf="!hidden"
+        mat-icon-button
+        matTooltip="Hide"
+        matTooltipPosition="before"
+        [matTooltipShowDelay]="400"
+        [matMenuTriggerFor]="hide"
+        [attr.data-cy]="'hide-annotation-' + annotation.id + '-menu'"
+        [disabled]="pending"
+      >
+        <mat-icon>visibility_off</mat-icon>
+      </button>
+      <mat-menu #hide>
+        <button mat-menu-item
+                [attr.data-cy]="'hide-annotation-' + annotation.id" (click)="hideAnnotation()">Hide annotation</button>
+        <button mat-menu-item
+                [attr.data-cy]="'hide-annotation-' + annotation.id + '-category'" (click)="hideLabels()">Hide category</button>
+      </mat-menu>
+      <button
+        *ngIf="hidden"
+        mat-icon-button
+        matTooltip="Show"
+        matTooltipPosition="before"
+        [matTooltipShowDelay]="400"
+        [matMenuTriggerFor]="show"
+        [attr.data-cy]="'show-annotation-' + annotation.id + '-menu'"
+      >
+        <mat-icon>visibility_on</mat-icon>
+      </button>
+      <mat-menu #show>
+        <button
+          [attr.data-cy]="'show-annotation-' + annotation.id"
+          mat-menu-item (click)="showAnnotation()">Show annotation</button>
+        <button
+          [attr.data-cy]="'show-annotation-' + annotation.id + '-category'"
+          mat-menu-item (click)="showLabels()">Show category</button>
+      </mat-menu>
+      <button
+        mat-icon-button
+        [attr.data-cy]="'copy-annotation-' + annotation.id + '-btn'"
+        matTooltip="Copy annotation"
+        matTooltipPosition="before"
+        [matTooltipShowDelay]="400"
+        (click)="copyAnnotation()"
+        [disabled]="pending"
+      >
+        <mat-icon
+          class="copy-btn">content_copy</mat-icon>
+      </button>
+      <button
+        [ngStyle]="{'background': 'rgba(255,20,20, '+deleteHoldProgress+')'}"
+        [ngClass]="{'pulse': holdCancel  | async}"
+        class="delete-btn"
+        holdable
+        [holdTime]="700"
+        [disabled]="trackerRunning || pending"
+        (confirm)="remove.emit(annotation.id)"
+        (progress)="onHoldProgress($event)"
+        mat-icon-button
+        color="warn"
+        matTooltip="Hold down to delete"
+        matTooltipPosition="before"
+        [matTooltipShowDelay]="400"
+        [attr.data-cy]="'delete-annotation-' + annotation.id"
+        (mousedown)="deleteButtonEngaged.emit()"
+        (mouseleave)="deleteButtonDisengaged.emit()"
+        (mouseup)="deleteButtonDisengaged.emit()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="body">
+    <span class="user">
+      By
+      <span class="value" [attr.data-cy]="'annotation-item-' + annotation.id + '-user'">
+        {{annotation?.user?.name}}
+      </span>
+    </span>
+
+
+    <span class="category">
+      Type:
+
+      <span class="value" [attr.data-cy]="'annotation-item-' + annotation.id + '-category'">
+        {{annotation.label.type}}
+      </span>
+    </span>
+
+
+    <span title="{{annotation.timestamp}} ms" class="timestamp">
+      Start time:
+      <span class="value"  [attr.data-cy]="'annotation-item-' + annotation.id + '-timestamp'">
+        {{annotation.timestamp | formatMs}}
+      </span>
+    </span>
+
+    <span title="{{annotation.duration}} ms" class="duration">
+      Duration:
+
+      <span class="value" [attr.data-cy]="'annotation-item-' + annotation.id + '-duration'">
+        {{annotation.duration | formatMs}}
+      </span>
+    </span>
+
+
+    <span class="occurrences">
+      Occurrences:
+
+      <span class="value" [attr.data-cy]="'annotation-item-' + annotation.id + '-occurrences'">
+        {{occurrences}}
+      </span>
+    </span>
+
+    <div class="false-positive">
+      <mat-checkbox
+        [formControl]="falsePositiveControl"
+        labelPosition="before"
+        (change)="onFalsePositiveChange($event.checked)"
+        [disabled]="pending"
+        color="primary">FALSE POSITIVE: </mat-checkbox>
+    </div>
+
+  </div>
+</div>
+

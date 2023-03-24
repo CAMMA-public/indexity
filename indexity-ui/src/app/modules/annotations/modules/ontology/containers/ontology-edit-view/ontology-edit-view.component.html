@@ -1,0 +1,73 @@
+
+<mat-toolbar>
+
+
+  <div class="left">
+    <button (click)="onGoBack()" mat-stroked-button> <mat-icon>chevron_left</mat-icon> </button>
+  </div>
+
+
+  <div class="right">
+    <button (click)="onCreateLabelAndAddToGroup()" color="accent" mat-button mat-flat-button>
+        <span style="display: flex; align-items: center;">
+          <mat-icon style="margin-right: 5px">add</mat-icon>
+          CREATE LABEL AND ADD TO GROUP
+        </span>
+    </button>
+  </div>
+
+
+</mat-toolbar>
+
+<div *ngIf="labelGroup$ | async as group; else isLoading" class="main-container">
+
+  <div class="group-labels">
+    <app-search-field
+      class="search-field"
+      [debounce]="0"
+    ></app-search-field>
+
+    <perfect-scrollbar
+      class="item-list"
+      [config]="{wheelPropagation: false}"
+    >
+      <app-label-item
+        class="item"
+        (removeFromGroup)="onRemoveFromGroup($event)"
+        [groupEditMode]="true"
+        [isInGroup]="true"
+        *ngFor="let label of group.labels; trackBy labelTrackByFn"
+        [label]="label"
+      ></app-label-item>
+    </perfect-scrollbar>
+
+
+  </div>
+
+  <div class="available-labels">
+    <app-search-field
+      class="search-field"
+      (search)="onLabelsSearch($event)"
+      [initialValue]="labelsSearchQ"
+      [debounce]="300"
+    ></app-search-field>
+
+    <perfect-scrollbar
+      class="item-list"
+      [config]="{wheelPropagation: false}"
+    >
+      <app-label-item
+        class="item"
+        [groupEditMode]="true"
+        (addToGroup)="onAddToGroup($event)"
+        [isInGroup]="false"
+        *ngFor="let label of allLabels$ | async; trackBy labelTrackByFn"
+        [label]="label"
+      ></app-label-item>
+    </perfect-scrollbar>
+
+  </div>
+
+</div>
+
+<ng-template #isLoading><mat-progress-bar mode="indeterminate"></mat-progress-bar></ng-template>

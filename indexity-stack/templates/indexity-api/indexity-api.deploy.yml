@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexity-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: indexity-api
+  template:
+    metadata:
+      name: indexity-api
+      labels:
+        app: indexity-api
+        tier: backend
+        env: {{.Values.env}}
+        helm-revision: "{{ .Release.Revision }}"
+    spec:
+      containers:
+        - name: indexity-api
+          image: "{{.Values.indexityApiImage.registry}}/{{.Values.indexityApiImage.repo}}:{{.Values.indexityApiImage.tag}}"
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              port: api-port
+              path: /version
+            initialDelaySeconds: 40
+            timeoutSeconds: 10
+          ports:
+            - name: api-port
+              containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: indexity-api-configs
+          volumeMounts:
+            - mountPath: /indexity-api/storage
+              name: indexity-api-volume
+      imagePullSecrets:
+        - name: docker-reg-key
+      volumes:
+        - name: indexity-api-volume
+          persistentVolumeClaim:
+            claimName: api-storage-claim
+      restartPolicy: Always

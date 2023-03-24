@@ -1,0 +1,18 @@
+<div mat-dialog-title class="dialog-title-container">
+  <h3 ><mat-icon style="margin-right:7px">help</mat-icon> <span>HELP</span> </h3>
+  <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-dialog-content>
+  <h4>Documentation</h4>
+  <div class="documentation-line">
+    <span>Indexity videos management and annotation</span>
+    <button mat-flat-button color="accent" (click)="openDocumentation.emit()">Open documentation</button>
+  </div>
+
+  <h4>Shortcuts</h4>
+  <div class="shortcut-line" *ngFor="let shortcut of dataSource">
+    <span>{{shortcut.description}}</span>
+    <span>{{shortcut.shortcut}}</span>
+  </div>
+</mat-dialog-content>

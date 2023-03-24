@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indexity-admin-configs
+data:
+  APICONFIG_BASEURL: "{{.Values.indexityAdminImage.apiConfigBaseUrl}}"
+  SOCKETCONFIG_BASEURL: "{{.Values.indexityAdminImage.socketConfigBaseUrl}}"

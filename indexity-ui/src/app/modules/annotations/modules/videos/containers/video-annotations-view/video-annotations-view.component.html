@@ -1,0 +1,180 @@
+<div class="main-container">
+    <div class="viewport-container">
+      <app-media-player
+        [ngStyle]="{'max-height': (settings$ | async).activateJsonExport ? 'calc(90vh - 64px)' : 'calc(95vh - 64px)' }"
+        [frameStep]="(settings$ | async).frameStep"
+        [videoHeight]="(settings$ | async).videoHeight"
+        [isVideoPlaying]="isVideoPlaying$ | async"
+        [videoId]="(video$ | async)?.id"
+        [fileUrl]="(video$ | async)?.url"
+        [tmpPause]="tmpPause"
+        (setVideoHeight)="onSetVideoHeight($event)"
+        (setVideoSize)="onSetVideoSize($event)"
+        (setSvgOverlay)="onSetSvgOverlay($event)"
+        (videoDataLoaded)="onDataLoaded($event)"
+        (joinRoom)="onJoinRoom($event)"
+        (leaveRoom)="onLeaveRoom($event)"
+        (setVideoTime)="onSetVideoTime($event)"
+        (setVideoDuration)="onSetVideoDuration($event)"
+        (setIsVideoPlaying)="onSetIsVideoPlaying($event)"
+        (videoSeeking)="addCurrentTimeToQueryParams()"
+      >
+
+        <div annotation-toolbar class="annotations-toolbar">
+          <surg-svg-annotation-toolbar
+            [annotationMinDuration]="annotationMinDuration"
+            [tmpSvgAnnotation]="tmpNewAnnotation$ | async"
+            [mode]="mode$ | async"
+            [shape]="shape$ | async"
+            [videoTime]="videoTime"
+            [toolbarShortcuts]="toolbarShortcuts"
+            [lockShortcuts]="lockToolbarShortcuts$ | async"
+            (setMode)="onSetMode($event)"
+            (setModeFailure)="onSetModeFailure($event)"
+            (setTmpAnnotation)="onSetTmpAnnotation($event)"
+            (createAnnotation)="onCreateAnnotation($event)"
+            (updateAnnotation)="onUpdateAnnotation($event)"
+            [enableEditMode]="(enableEditMode$ | async)"
+          ></surg-svg-annotation-toolbar>
+          <div class="selection-controls-container" *ngIf="(selectedAnnotations$ | async).length as annotationsCount">
+            <span>SELECTION (<span data-cy="selection-count">{{annotationsCount}}</span>) : </span>
+            <button mat-icon-button
+                    color="warn"
+                    (click)="deleteSelectedAnnotations()"
+                    matTooltip="Delete selected"
+                    data-cy="delete-selection-btn"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button
+                    color="accent"
+                    (click)="updateSelectedAnnotationsLabels()"
+                    matTooltip="Edit labels"
+                    data-cy="edit-selection-labels-btn"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button
+                    (click)="clearSelection()"
+                    matTooltip="Clear selection"
+                    data-cy="clear-selection-btn"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+
+
+
+        <app-annotations-timelines
+          annotations-timelines
+          [labels]="labels$ | async"
+          [currentTimeScaleLabel]="timeScaleLabel"
+          [videoTime]="videoTime$ | async"
+          [videoDuration]="videoDuration$ | async"
+          [annotations]="normalizedAnnotationsWithTrackerInfo$ | async"
+          [formattedVideoTime]="formattedVideoTime$ | async"
+          [hiddenAnnotations]="hiddenAnnotations$ | async"
+          [selectedAnnotations]="selectedAnnotations$ | async"
+          [highlightedAnnotations]="[highlighted$ | async]"
+          [isVideoPlaying]="isVideoPlaying$ | async"
+          [playbackRate]="playbackRate$ | async"
+          (setIsPlaying)="onSetIsVideoPlaying($event)"
+          (setTime)="setCurrentTime($event)"
+          (eventHover)="onAnnotationHighlight($event)"
+          (currentTimeClicked)="onCurrentTimeClick()"
+          (updatePlaybackRate)="updatePlaybackRate()"
+          (seekNextEvent)="onSeekNextEvent()"
+          (selectAnnotation)="onAnnotationSelect($event)"
+          (selectAnnotations)="onAnnotationsSelect($event)"
+        ></app-annotations-timelines>
+
+
+      </app-media-player>
+
+      <div class="controls-container">
+
+        <surg-highlighter-svg
+          [svgOverlay]="svgOverlay$ | async"
+          [currentMode]="mode$ | async"
+          [shape]="shape$ | async"
+          [currentTime]="videoTime"
+          [hiddenAnnotations]="hiddenAnnotations$ | async"
+          [hovered]="highlighted$ | async"
+          [tmpSvgAnnotation]="tmpNewAnnotation$ | async"
+          [annotationToUpdate]="annotationToUpdate$ | async"
+          [suggestedLabelGroup]="suggestedAnnotationLabelGroup$ | async"
+          [labels]="searchResults$ | async"
+          [showLabels]="(settings$ | async).showLabels"
+          [displayedShapes]="displayedShapes$ | async"
+          [labelDeletion]="user.roles.includes('ADMIN')"
+          [videoDuration]="videoDuration"
+          [videoId]="videoId"
+          (setShape)="onSetShape($event)"
+          (setMode)="onSetMode($event)"
+          (setTmp)="onSetTmpAnnotation($event)"
+          (update)="onUpdateAnnotation($event)"
+          (seekBackward)="onSeekBackward()"
+          (seekForward)="onSeekForward()"
+          (searchQuery)="onSearchQueryChanges($event)"
+          (hover)="onAnnotationHighlight($event)"
+          (deleteAnnotationLabel)="onAnnotationLabelDelete($event)"
+          (isDialogOpen)="onDialogOpen($event)"
+        ></surg-highlighter-svg>
+
+
+
+      </div>
+      <app-annotations-tools
+        [videoDuration]="videoDuration$ | async"
+        [annotations]="annotations$ | async"
+        [video]="video$ | async"
+        [settings]="settings$ | async"
+        (createAnnotations)="onCreateAnnotations($event)"
+      ></app-annotations-tools>
+
+    </div>
+
+  <perfect-scrollbar class="sidebar-scroller">
+
+    <div class="sidebar-container" data-cy="sidebar">
+      <button
+        [disabled]="!copy"
+        mat-flat-button
+        id="paste-btn"
+        (click)="copyAnnotation()"
+        data-cy="paste-annotation-btn"
+      >
+        <mat-icon>content_paste</mat-icon>
+        PASTE ANNOTATION (CTRL+V)
+      </button>
+
+      <app-annotation-item
+        *ngFor="let annotation of currentAnnotations$ | async; trackBy: annotationTrackFn"
+        [annotation]="annotation"
+        [hiddenAnnotations]="hiddenAnnotations$ | async"
+        [highlighted]="highlighted$ | async"
+        [pending]="!annotation.id"
+        [occurrences]="annotationsStoreFacade.countAnnotationsByLabel(annotation.label) | async"
+        [trackerRunning]="(trackedAnnotationIds$ | async).includes(annotation.id)"
+        [trackerRunningOnSameTrack]="(trackedAnnotationLabelNames$ | async).includes(annotation.label.name)"
+        (remove)="onDeleteAnnotation($event)"
+        (copy)="onAnnotationCopy($event)"
+        (hide)="onAnnotationHide($event)"
+        (hideLabel)="onLabelHide($event)"
+        (show)="onAnnotationShow($event)"
+        (showLabel)="onLabelShow($event)"
+        (mouseover)="onAnnotationHighlight(annotation.id)"
+        (mouseleave)="onAnnotationHighlight(null)"
+        (deleteButtonEngaged)="onDeleteEngaged()"
+        (deleteButtonDisengaged)="onDeleteDisengaged()"
+        (markAsFalsePositive)="onMarkAsFalsePositive($event)"
+        (startTracking)="onStartTracking($event)"
+      ></app-annotation-item>
+
+    </div>
+
+  </perfect-scrollbar>
+
+
+</div>

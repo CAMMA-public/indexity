@@ -1,0 +1,37 @@
+<button style="margin-right: 5px;"
+  #cancelButton
+  data-cy="cancel-annotation-btn"
+  (click)="cancelSvgMode()"
+  mat-raised-button
+  id="cancelButton"
+  color="warn"
+  matTooltip="Cancel"
+  mdTooltipPosition="below"
+  [disabled]="mode.name === 'normal'"><mat-icon>cancel</mat-icon></button>
+
+<mat-button-toggle-group style="margin-right: 5px;" #toggle="matButtonToggleGroup">
+  <mat-button-toggle value="draw" data-cy="drawing-mode-btn" (click)="activateDrawingMode()" matTooltip="Draw" matTooltipPosition="below"><mat-icon>gesture</mat-icon></mat-button-toggle>
+  <mat-button-toggle value="create" data-cy="create-annotation-btn" (click)="activateAnnotationCreationMode()" matTooltip="Create" matTooltipPosition="below"><mat-icon>add</mat-icon></mat-button-toggle>
+  <mat-button-toggle value="edit" data-cy="edit-mode-btn" (click)="activateEditMode()" [disabled]="!enableEditMode" matTooltip="Edit" matTooltipPosition="below"><mat-icon>edit</mat-icon></mat-button-toggle>
+
+  <button
+    *ngIf="mode.name === 'edit' && tmpSvgAnnotation"
+    mat-raised-button
+    style="border-radius: 0; margin: 0; height: 48px;"
+    data-cy="cut-annotation-btn"
+    (click)="cutAnnotation()"
+    [disabled]="disableCut()"
+    matTooltip="Cut"
+    matTooltipPosition="below"><mat-icon>content_cut</mat-icon></button>
+</mat-button-toggle-group>
+
+<button
+  #validateButton
+  value="normal"
+  data-cy="normal-mode-btn"
+  mat-raised-button
+  checked="true"
+  matTooltip="Validate"
+  matTooltipPosition="below"
+  (click)="deactivateSvgMode()"
+  [disabled]="!tmpSvgAnnotation || mode.name === 'normal'"><mat-icon>done</mat-icon></button>

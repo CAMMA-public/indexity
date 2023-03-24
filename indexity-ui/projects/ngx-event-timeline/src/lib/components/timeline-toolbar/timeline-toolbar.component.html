@@ -1,0 +1,40 @@
+<div class="main-container" data-cy="timeline-toolbar">
+  <div class="left-side-tools">
+
+    <button data-cy="timeline-rewind-btn" title="Rewind to beginning" (click)="onRewind()" class="rewind-btn">
+      <svg width="18" height="16" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" fill="#009BFF"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+    </button>
+    <button data-cy="timeline-play-btn" (click)="onPlay()" title="Play" *ngIf="!isPlaying; else pauseTpl" class="play-btn">
+      <svg width="18" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#009BFF"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+    </button>
+
+    <ng-template #pauseTpl>
+      <button data-cy="timeline-pause-btn" (click)="onPause()" title="Pause" class="pause-btn">
+        <svg width="18" height="16" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="#009BFF"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </button>
+    </ng-template>
+
+    <button data-cy="timeline-next-btn" title="Next event" class="next-btn" (click)="onForwardNext()">
+      <svg width="18" height="16" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" fill="#009BFF"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+    </button>
+
+    <ng-content data-cy="timeline-custom-controls-left" select="[custom-controls-left]"></ng-content>
+
+
+  </div>
+  <div class="middle-side-tools">
+    <span
+
+      data-cy="timeline-current-time"
+      class="current-time"
+      (click)="onCurrentTimeClick()"
+    >
+      {{isStandAlone ? currentTimestamp : (currentTimestamp$ | async)}}{{(this.timeScaleLabel  ? this.timeScaleLabel : '')}}
+    </span>
+    <button *ngIf="showSetCurrentTime" (click)="setCurrentTimeClicked.emit()">SET TIME</button>
+  </div>
+  <div class="right-side-tools">
+    <ng-content data-cy="timeline-custom-controls-right" select="[custom-controls-right]"></ng-content>
+  </div>
+
+</div>

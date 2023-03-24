@@ -1,0 +1,43 @@
+<div class="main-container">
+
+  <div class="form-container">
+
+    <app-login-form   *ngIf="formType === 'login'"  [error]="loginError"  (formSubmit)="formSubmit.emit($event)" [locked]="formLocked"></app-login-form>
+    <app-signup-form  *ngIf="formType === 'signup'" [error]="signupError" (formSubmit)="formSubmit.emit($event)" [locked]="formLocked"></app-signup-form>
+
+    <div *ngIf="formType === 'passwordReset'" class="password-reset-form-container login-form">
+
+      <h3>Reset password</h3>
+      <br>
+      <input
+        [ngClass]="{'error': emailControl.errors && emailControl.touched}"
+        [formControl]="emailControl"
+        (keyup.enter)="onRequestPasswordReset()"
+        name="email"
+        class="full-width"
+        type="email"
+        placeholder="Email"
+      />
+
+      <span *ngIf="emailControl.hasError('email')" class="error-message">
+        Invalid email format
+      </span>
+
+      <button (click)="onRequestPasswordReset()" [disabled]="!emailControl.valid" type="submit" class="login-button" mat-flat-button color="accent">RESET PASSWORD</button>
+
+    </div>
+
+  </div>
+
+  <div class="additional-container">
+    <a (click)="toggleForm()">{{
+        formType === 'login' ?
+            'Create an account':
+            'Login with an existing account'
+      }}</a>
+      <br>
+    <a *ngIf="formType !== 'passwordReset'" (click)="toggleForm('passwordReset')">Forgot password?</a>
+  </div>
+
+
+</div>

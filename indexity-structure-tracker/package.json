@@ -1,0 +1,74 @@
+{
+  "name": "indexity-structure-tracker-api",
+  "version": "1.4.0",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "npx eslint '{src,apps,libs,test}/**/*.ts'",
+    "lint:fix": "npx eslint '{src,apps,libs,test}/**/*.ts' --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^6.10.14",
+    "@nestjs/core": "^6.10.14",
+    "@nestjs/platform-express": "^6.10.14",
+    "axios": "^0.19.2",
+    "jest-ts-auto-mock": "^1.0.11",
+    "lodash": "^4.17.15",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.0",
+    "rxjs": "^6.5.4",
+    "ts-auto-mock": "^2.2.5",
+    "ttypescript": "^1.5.10"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^6.13.2",
+    "@nestjs/schematics": "^6.8.1",
+    "@nestjs/testing": "^6.10.14",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.25",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.1.6",
+    "@types/supertest": "^2.0.8",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.3.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

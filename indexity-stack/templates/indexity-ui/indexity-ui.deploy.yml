@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexity-ui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: indexity-ui
+      labels:
+        app: indexity-ui
+        tier: frontend
+        env: {{.Values.env}}
+        helm-revision: "{{ .Release.Revision }}"
+    spec:
+      containers:
+        - name: indexity-ui
+          image: "{{.Values.indexityUiImage.registry}}/{{.Values.indexityUiImage.repo}}:{{.Values.indexityUiImage.tag}}"
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              port: ui-port
+              path: /
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          ports:
+            - name: ui-port
+              containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: indexity-ui-configs
+      imagePullSecrets:
+        - name: docker-reg-key
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: indexity-ui

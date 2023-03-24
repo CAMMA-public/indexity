@@ -1,0 +1,26 @@
+.main-container {
+  display: flex;
+  width: 100%;
+}
+
+.available-labels {
+  flex: 1;
+  margin: 5px;
+}
+
+.group-labels {
+  flex: 1;  margin: 5px;
+}
+
+.item-list {
+  max-height: calc(100vh - 215px);
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}

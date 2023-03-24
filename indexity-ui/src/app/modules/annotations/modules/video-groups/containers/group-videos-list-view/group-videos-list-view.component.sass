@@ -1,0 +1,32 @@
+.loading
+  flex: 1
+  display: flex
+  align-items: center
+  flex-direction: column
+  justify-content: center
+  height: 100%
+
+.right-div
+  display: flex
+  flex: 7
+  height: 100%
+
+.loading > span
+  margin-top: 20px
+
+.loading > mat-icon
+  font-size: 48px
+  height: 48px
+  width: 48px
+
+\:host
+  flex: 7
+  margin: 8px
+
+.scroll-area
+  max-height: calc(100vh - 15vh - 64px - 5px)
+  //100vh = application full height (= body height)
+  // 15vh = main app toolbar height
+  // 64px = toolbar height
+  //  5px = search bar height
+  // this calculation is necessary in order for the video list container to not overflow (resulting in scrollbar appearance)

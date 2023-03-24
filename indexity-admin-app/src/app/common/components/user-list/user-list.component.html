@@ -1,0 +1,31 @@
+<ion-list>
+  <ion-list-header lines="full">
+    <ion-badge color="success" style="margin-right: 3px">Activated accounts</ion-badge>
+  </ion-list-header>
+  <ng-container *ngFor="let u of (isFiltering ? filteredCollection : collection); trackBy: trackByFn" >
+    <ion-item *ngIf="u.isActivated" >
+      <ion-label>{{u.email}}</ion-label>
+      <ng-container *ngIf="currentUserID !== u.id" >
+        <ion-toggle checked (click)="toggleActivateUser(u)"></ion-toggle>
+      </ng-container>
+      <ion-button fill="clear"  [routerLink]="['/users', u.id]">
+        <ion-icon slot="icon-only" name="md-more"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ng-container>
+</ion-list>
+
+<ion-list>
+  <ion-list-header lines="full">
+    <ion-badge color="danger" style="margin-right: 3px">Disabled accounts</ion-badge>
+  </ion-list-header>
+  <ng-container *ngFor="let u of (isFiltering ? filteredCollection : collection); trackBy: trackByFn" >
+    <ion-item *ngIf="!u.isActivated" >
+      <ion-label>{{u.email}}</ion-label>
+      <ion-toggle checked=false (click)="toggleActivateUser(u)"></ion-toggle>
+      <ion-button fill="clear"  [routerLink]="['/users', u.id]">
+        <ion-icon slot="icon-only" name="md-more"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ng-container>
+</ion-list>

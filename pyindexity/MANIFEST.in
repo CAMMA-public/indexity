@@ -1,0 +1,10 @@
+exclude .gitlab-ci.yml
+exclude .gitignore
+exclude environment.yml
+exclude tasks.py
+exclude MANIFEST.in
+exclude README.md
+exclude requirements.txt
+prune .gitlab*
+prune .githooks*
+prune python-dependencies*

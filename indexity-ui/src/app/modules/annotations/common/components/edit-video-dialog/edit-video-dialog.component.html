@@ -1,0 +1,30 @@
+<h2 style="margin-bottom: 15px">Edit video</h2>
+
+<mat-dialog-content>
+  <form *ngIf="video">
+    <div class="form-bloc">
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input type="text" [value]="video.name" matInput [formControl]="nameControl">
+      </mat-form-field>
+
+      <span class="warning">
+        Warning: The update will shortly interrupt the work of annotators currently using the video.
+      </span>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="actions">
+  <button mat-flat-button [mat-dialog-close]="null">Cancel</button>
+  <button
+    type="submit"
+    mat-flat-button
+    color="accent"
+    [mat-dialog-close]="{ name: nameControl.value }"
+    [disabled]="!nameControl.value || nameControl.value === video.name"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>

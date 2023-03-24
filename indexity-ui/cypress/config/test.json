@@ -1,0 +1,13 @@
+{
+  "projectId": "xeqfe7",
+  "baseUrl": "http://0.0.0.0:8000",
+  "ignoreTestFiles": ["**/examples/*.spec.js"],
+  "numTestsKeptInMemory": 0,
+  "env": {
+    "apiUrl": "http://indexity.local",
+    "adminEmail": "admin@indexity.local",
+    "adminPassword": "indexity-password",
+    "adminName": "Admin",
+    "sampleName": "SampleVideo_1280x720_1mb.mp4"
+  }
+}

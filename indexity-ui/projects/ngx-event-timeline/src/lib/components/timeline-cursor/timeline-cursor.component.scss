@@ -1,0 +1,13 @@
+@import '../../colors';
+
+.main-container{
+  position: absolute;
+  height: 100%;
+  z-index: 99;
+  width: 4px;
+  cursor: col-resize;
+  left: 0;
+  top: 0;
+  background: $blue-3;
+
+}

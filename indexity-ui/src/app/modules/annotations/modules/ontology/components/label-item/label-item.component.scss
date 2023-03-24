@@ -1,0 +1,39 @@
+.ontology-item {
+  margin: 5px 0;
+  animation: fadein 350ms;
+}
+
+
+mat-card {
+
+}
+mat-card-header{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 0 !important;
+}
+
+
+.label-color {
+  min-height: 20px;
+  min-width: 20px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+

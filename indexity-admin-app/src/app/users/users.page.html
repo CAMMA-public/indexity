@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Users
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-search [listComponentRef]="listComp"></app-search>
+  <!-- List of Text Items -->
+  <app-user-list #listComp [collection]="users$ | async"></app-user-list>
+
+
+</ion-content>
+

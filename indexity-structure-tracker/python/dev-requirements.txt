@@ -1,0 +1,6 @@
+opencv-contrib-python~=4.2.0
+pylint~=2.4.0
+pytest~=5.3.0
+pytest-cov~=2.8.0
+flake8~=3.8
+invoke~=1.4

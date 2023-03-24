@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postfix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postfix
+  template:
+    metadata:
+      name: postfix
+      labels:
+        app: postfix
+        tier: backend
+        env: {{.Values.env}}
+        helm-revision: "{{ .Release.Revision }}"
+    spec:
+      containers:
+        - name: postfix
+          image: "{{.Values.postfixImage.registry}}/{{.Values.postfixImage.repo}}:{{.Values.postfixImage.tag}}"
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 2
+            tcpSocket:
+              port: 25
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            failureThreshold: 2
+            tcpSocket:
+              port: 25
+            periodSeconds: 60
+          ports:
+            - name: smtp
+              containerPort: 25
+              hostPort: 25
+            - name: smtp-auth
+              containerPort: 587
+              hostPort: 587
+          envFrom:
+            - configMapRef:
+                name: postfix-configs
+      imagePullSecrets:
+        - name: docker-reg-key
+      restartPolicy: Always

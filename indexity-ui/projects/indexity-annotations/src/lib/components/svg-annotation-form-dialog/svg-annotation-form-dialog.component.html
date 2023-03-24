@@ -1,0 +1,86 @@
+<h2 style="margin-bottom: 15px">Label selection</h2>
+
+<mat-dialog-content>
+  <form (submit)="closeDialog({
+    name: labelControl.value.name ? labelControl.value.name : labelControl.value,
+    color: color,
+    type: this.labelTypeControl.value
+  })">
+
+    <div class='suggested-labels' *ngIf="data.suggestedLabelGroup && data.suggestedLabelGroup.labels.length" >
+      <h4 style="margin-bottom: 20px">
+        <span style="padding: 3px 10px; border-radius: 3px; background: rgba(0,0,0,0.24)">{{data.suggestedLabelGroup.name}}</span> ontology labels:
+      </h4>
+      <mat-chip-list >
+        <mat-chip
+          [selected]="data.currentLabel && data.currentLabel.name === label.name"
+          *ngFor="let label of data.suggestedLabelGroup.labels"
+          color="primary"
+          (click)="closeDialog(label)"
+        >
+          {{label.name}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+
+    <div class="suggested-labels">
+
+      <h4 *ngIf="data.suggestedLabelGroup && data.suggestedLabelGroup.labels.length" style="margin-bottom: 20px">
+       More labels:
+      </h4>
+
+      <div class="more-labels" style="display: flex; flex-direction: column; align-items: stretch">
+        <mat-form-field  >
+          <input class="full-width"  data-cy="label-name-input" type="text" placeholder="Label" matInput [formControl]="labelControl" [matAutocomplete]="labelAuto" [style.color]="color">
+
+          <mat-autocomplete (optionSelected)="onAutoCompleteSelected($event)"  class="full-width" #labelAuto="matAutocomplete">
+            <mat-option  *ngFor="let option of labels$ | async " [attr.data-cy]="'option-' + option.name" [value]="option" [title]="option.name" (onSelectionChange)="onLabelSelect($event)" [style.color]="option.color">
+              <span class="label-opt">
+
+              <span>{{option.name}}</span>
+
+              <span>
+                <button *ngIf="data.enableDelete" mat-icon-button color="warn" (click)="onDeleteClick($event, option.name)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+
+            </span>
+            </mat-option>
+          </mat-autocomplete>
+
+          <div  matSuffix >
+            <div data-cy="label-color-picker" class="selected-color"
+                 [cpDisableInput]="true"
+                 [cpAlphaChannel]="'disabled'"
+                 (colorPickerChange)="onColorChange($event)"
+                 [colorPicker]="color"
+                 [style.background]="color"
+            ></div>
+          </div>
+        </mat-form-field>
+
+        <mat-form-field >
+          <mat-label>Label type:</mat-label>
+          <mat-select [disabled]="!canEditType"  [formControl]="labelTypeControl">
+            <mat-option *ngFor="let alType of annotationLabelTypes" [value]="alType.value">
+              {{alType.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="actions">
+  <button data-cy="cancel-label-form" mat-flat-button [mat-dialog-close]="null">Cancel</button>
+  <button data-cy="submit-label-form" type="submit" [disabled]="!labelControl.value" mat-flat-button color="accent" [mat-dialog-close]="{
+    name: labelControl.value.name ? labelControl.value.name : labelControl.value,
+    color: color,
+    type: this.labelTypeControl.value
+
+  }">Submit</button>
+</mat-dialog-actions>

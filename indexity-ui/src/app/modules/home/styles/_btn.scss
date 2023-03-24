@@ -1,0 +1,53 @@
+/*=================== custom button rule start ====================*/
+.button{
+  display: inline-block;
+  border: 1px solid transparent;
+  text-transform: capitalize;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 35px;
+  background-color: $white;
+  color: $primary-color;
+  color: $title-color;
+  transition: all .4s ease;
+
+  i,span{
+    margin-left: 5px;
+  }
+
+  @media(min-width: 900px){
+    // padding: 12px 40px;
+    padding: 12px 45px;
+  }
+
+  &:hover{
+    background-color: transparent;
+    border-color: $primary-color;
+
+  }
+
+  &-header{
+    padding: 10px 40px;
+    border-color: $primary-color;
+    border-width: 2px;
+  }
+
+  &.bg:hover{
+    border-color: transparent;
+    color: $blue-1;
+    background: $light-1;
+  }
+
+  &-light{
+    background-color: transparent;
+    border-color: $primary-color;
+
+    &:hover{
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+
+}
+/*=================== custom button rule end ====================*/

@@ -1,0 +1,26 @@
+<div class="status-line">
+  <span> STATUS: </span>
+
+  <div class="status-line-edit">
+    <button
+      *ngFor="let videoState of annotationStates"
+      data-cy="status-label"
+      class="status-label"
+      [disabled]="
+        (editingAnnotationState && !authorizedStates.includes(videoState) && videoState !== currentState)
+        || (!editingAnnotationState && authorizedStates.length === 0)
+      "
+      [ngClass]="{
+        'selected': currentState === videoState,
+        'grey': videoState === VIDEO_ANNOTATION_STATE.ANNOTATION_NOT_REQUIRED,
+        'orange': videoState === VIDEO_ANNOTATION_STATE.ANNOTATION_PENDING,
+        'blue': videoState === VIDEO_ANNOTATION_STATE.ANNOTATING,
+        'green': videoState === VIDEO_ANNOTATION_STATE.ANNOTATION_FINISHED,
+        'hidden': (!editingAnnotationState && currentState !== videoState)
+        }"
+        (click)="editAnnotationState(videoState)"
+      >
+      {{ videoAnnotationProgressToLabel(videoState) }}
+    </button>
+  </div>
+</div>

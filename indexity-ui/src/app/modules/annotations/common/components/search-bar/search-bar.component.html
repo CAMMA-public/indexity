@@ -1,0 +1,113 @@
+<div class="filter-container">
+  <div class="filter-selector">
+    <ng-container [ngSwitch]="enabledFilers.length">
+
+      <ng-container *ngSwitchCase="1">
+        <ng-container [ngSwitch]="enabledFilers[0]">
+          <ng-container *ngSwitchCase="'BY_NAME'">
+            <label>NAME</label>
+          </ng-container>
+          <ng-container *ngSwitchCase="'BY_ANNOTATION_PROGRESS_STATE'">
+            <label>ANNOTATION STATUS</label>
+          </ng-container>
+          <ng-container *ngSwitchCase="'BY_ANNOTATION_LABEL_NAME'">
+            <label>LABEL NAME</label>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <mat-form-field color="accent" appearance="standard">
+          <mat-select
+            [formControl]="filterSelectorControl"
+            color="primary"
+            data-cy="filter-type-selector"
+            placeholder="Filter..."
+          >
+            <mat-option *ngIf="enabledFilers.indexOf('BY_NAME') >= 0"
+                        data-cy="filter-by-name-option"
+                        [value]="'BY_NAME'">
+              NAME
+            </mat-option>
+            <mat-option *ngIf="enabledFilers.indexOf('BY_ANNOTATION_PROGRESS_STATE') >= 0"
+                        data-cy="filter-by-status-option"
+                        [value]="'BY_ANNOTATION_PROGRESS_STATE'">
+              ANNOTATION STATUS
+            </mat-option>
+            <mat-option *ngIf="enabledFilers.indexOf('BY_ANNOTATION_LABEL_NAME') >= 0"
+                        data-cy="filter-by-label-option"
+                        [value]="'BY_ANNOTATION_LABEL_NAME'">
+              LABEL NAME
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+    </ng-container>
+  </div>
+
+  <ng-container [ngSwitch]="filterSelectorControl.value">
+
+    <ng-container *ngSwitchCase="'BY_NAME'">
+      <mat-form-field color="accent" class=label-size>
+        <label>
+          <input name="name" [formControl]="nameFilterControl" type="text" placeholder="Name..." matInput>
+        </label>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'BY_ANNOTATION_LABEL_NAME'">
+      <mat-form-field color="accent" class=label-size>
+        <label>
+          <input data-cy="label-name-input" type="text" placeholder="Label" matInput
+                 [formControl]="labelNameFilterControl"
+                 [matAutocomplete]="labelAuto"/>
+        </label>
+
+        <mat-autocomplete (optionSelected)="onAutoCompleteSelected($event)"
+                          #labelAuto="matAutocomplete"
+                          class=label-size>
+          <mat-option
+            (onSelectionChange)="onLabelSelect($event)"
+            *ngFor="let option of labels"
+            [attr.data-cy]="'option-' + option.name"
+            [title]="option.name"
+            [value]="option"
+          >
+                  <span>
+                    <mat-icon [style.color]="option.color">label</mat-icon>
+                    <span>{{option.name}}</span>
+                  </span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'BY_ANNOTATION_PROGRESS_STATE'">
+      <mat-form-field color="accent" appearance="standard">
+        <mat-select
+          [formControl]="annotationStatusFilterControl"
+          id="select-progress-state"
+          data-cy="select-progress-state"
+          color="primary"
+          placeholder="Annotation progress..."
+        >
+          <mat-option *ngFor="let state of annotationProgressStatuses" [value]="state.value">
+            {{state.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+  </ng-container>
+
+  <button
+    [disabled]="isClearFilterButtonDisabled"
+    ngDefaultControl
+    data-cy="clear-btn"
+    class="clear-btn"
+    mat-button color="warn"
+    (click)="clearFilter()">
+    CLEAR
+  </button>
+</div>

@@ -1,0 +1,46 @@
+<div class="main-container">
+
+  <div
+    #videoContainer
+    id="video-container"
+    mwlResizable
+    [ngStyle]="{ height: videoHeight + 'px' }"
+    (resizing)="onResize($event)"
+  >
+
+    <video
+      [src]="fileUrl"
+      crossorigin
+      surg-video-player
+      [frameStep]="frameStep"
+      [videoId]="videoId"
+      [isVideoPlaying]="isVideoPlaying"
+      [tmpPause]="tmpPause"
+      (setVideoSize)="onSetVideoSize($event)"
+      (setSvgOverlay)="onSetSvgOverlay($event)"
+      (joinRoom)="onJoinRoom($event)"
+      (loadeddata)="videoDataLoaded.emit($event)"
+      (seeking)="videoSeeking.emit($event)"
+      (leaveRoom)="onLeaveRoom($event)"
+      (setVideoTime)="onSetVideoTime($event)"
+      (setVideoDuration)="onSetVideoDuration($event)"
+      (setIsVideoPlaying)="onSetIsVideoPlaying($event)"
+    ></video>
+
+
+    <div
+      class="resize-handle-bottom"
+      mwlResizeHandle
+      [resizeEdges]="{ bottom: true }"
+    ></div>
+
+  </div>
+  <div class="toolbar-container">
+    <ng-content select="[annotation-toolbar]"></ng-content>
+  </div>
+
+  <div class="timelines-container" [ngStyle]="{'height': 'calc(100% - ' + actualHeight + 'px - 64px)'}">
+    <ng-content select="[annotations-timelines]"></ng-content>
+  </div>
+</div>
+

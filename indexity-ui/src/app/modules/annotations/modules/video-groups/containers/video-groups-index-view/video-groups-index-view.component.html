@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <div class="toolbar-actions">
+    <button mat-flat-button
+            color="accent"
+            data-cy="add-group-btn"
+            (click)="createGroup()">CREATE</button>
+  </div>
+</mat-toolbar>
+
+<div class="main-content">
+  <div class="groups-list">
+    <app-search-field
+      (search)="searchGroups($event)"
+      data-cy="search-groups"
+      [initialValue]="groupsFilter$ | async"
+    ></app-search-field>
+
+    <div class="groups-container"
+         infinite-scroll
+         [scrollWindow]="false"
+         (scrolled)="onLoadNextGroups()"
+    >
+      <app-video-group-item
+        *ngFor="let group of videoGroups$ | async; trackBy: videoGroupTrackBy"
+        [id]="'group-' + group.id"
+        [videoGroup]="group"
+        [videosCount]="group.videoIds?.length"
+        [usersCount]="group.allowedUserIds?.length"
+        [attr.data-cy]="'group-item-' + group.id"
+        [displayAdminActions]="(userCanManageVideosGroups$ | async) || (currentUserId$ | async) === group.userId"
+        [enableGroupPermissions]="enableGroupPermissions"
+        [isSelected]="group.id == (videoGroup$ | async)?.id"
+        (remove)="onGroupRemove($event)"
+        (click)="loadVideos($event, group.id)"
+        (dblclick)="accessEditPage(group.id)"
+        (edit)="accessEditPage($event)"
+        (editUsers)="accessUsersPage($event)"
+        (labelGroupClick)="onLabelGroupClick($event)"
+      >
+      </app-video-group-item>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,70 @@
+<form style="width: 100%" (keyup.enter)="submitForm(form.value)" [formGroup]="form"  @EnterLeave class="login-form">
+
+  <h2>SIGNUP</h2>
+
+  <input
+    [ngClass]="{'error': this.form.controls['name'].errors && form.controls['name'].touched}"
+    formControlName="name"
+    name="name"
+    class="full-width"
+    autocomplete="new-name"
+    type="text"
+    placeholder="Full name"
+  />
+
+  <input
+    [ngClass]="{'error': this.form.controls['email'].errors && form.controls['email'].touched}"
+    formControlName="email"
+    name="email"
+    class="full-width"
+    autocomplete="new-user"
+    type="email"
+    placeholder="Email"
+  />
+
+  <span *ngIf="form.controls['email'].hasError('email')" class="error-message">
+    Invalid email format
+  </span>
+
+  <input
+    [ngClass]="{'error': this.form.controls['password'].errors && form.controls['password'].touched}"
+    formControlName="password"
+    name="password"
+    class="full-width"
+    autocomplete="new-password"
+    type="password"
+    placeholder="Password"
+  />
+
+  <span *ngIf="passwordLengthInvalid()" class="error-message">
+    Password must contain at least 8 characters
+  </span>
+
+  <input
+    [ngClass]="{'error': this.form.controls['passwordConfirmation'].errors && form.controls['passwordConfirmation'].touched}"
+    formControlName="passwordConfirmation"
+    name="passwordConfirmation"
+    class="full-width"
+    autocomplete="new-repeat-password"
+    type="password"
+    placeholder="Repeat password"
+  />
+
+  <span *ngIf="passwordsDontMatch()" class="error-message">
+    Passwords don't match
+  </span>
+
+  <button
+    [disabled]="!form.valid || locked"
+    (click)="submitForm(form.value)"
+    type="submit"
+    data-cy="signup-btn"
+    class="login-button"
+    mat-flat-button
+    color="primary"
+  >
+    SIGNUP
+  </button>
+
+  <span class="error-message api-message" *ngIf="error">{{ error }}</span>
+</form>

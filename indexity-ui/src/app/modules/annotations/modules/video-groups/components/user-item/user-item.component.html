@@ -1,0 +1,36 @@
+<mat-card *ngIf="user" class="ontology-item">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="label-color" ></div>
+      <span>{{user.name}}</span>
+      <span class="status-label orange" *ngIf="userIsMod(user)">Moderator</span>
+      <span class="status-label grey" *ngIf="!user.isActivated">Deactivated</span>
+    </mat-card-title>
+
+    <mat-card-subtitle>
+      <span>{{user.email}}</span>
+    </mat-card-subtitle>
+
+    <button
+      *ngIf="!isInGroup"
+      (click)="addToGroup.emit(user.id)"
+      matTooltip="Add user to group"
+      matTooltipPosition="left"
+      mat-icon-button
+    >
+      <mat-icon >add_circle_outline</mat-icon>
+    </button>
+
+    <button
+      *ngIf="isInGroup"
+      [disabled]="!user.isActivated"
+      (click)="removeFromGroup.emit(user.id)"
+      matTooltip="Remove user from group"
+      matTooltipPosition="left"
+      mat-icon-button color="warn"
+    >
+      <mat-icon >remove_circle_outline</mat-icon>
+    </button>
+
+  </mat-card-header>
+</mat-card>

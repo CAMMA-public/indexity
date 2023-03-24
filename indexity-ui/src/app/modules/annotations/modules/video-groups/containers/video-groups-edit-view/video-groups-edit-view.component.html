@@ -1,0 +1,81 @@
+<div>
+  <app-video-group-toolbar
+    [videoGroup]="videoGroup$ | async"
+    [uploading]="uploading$ | async"
+    [canManageGroup]="true"
+    (edit)="onGroupEdit($event)"
+    (uploadToGroup)="onGroupUpload($event)"
+    (back)="accessGroupIndex()"
+  ></app-video-group-toolbar>
+
+  <div class="main-content">
+    <div class="video-list">
+      <h3>GROUP VIDEOS</h3>
+      <search-bar
+        (filter)="onVideosFilterOfCurrentVideoGroup($event)"
+        class="size"
+        [enabledFilers]="['BY_NAME']"
+      >
+      </search-bar>
+      <div
+        [ngClass]="{'highlighted': highlightGroupVideosZone}"
+      >
+        <app-video-list
+          (onLoadNextBatch)="onGroupVideosListScrollEnd()"
+          [videos]="groupVideos$ | async"
+          [showHeader]="false"
+          [showStats]="false"
+          [showStatus]="false"
+          [canManageVideos]="false"
+          [forceSmLayout]="false"
+          [enableActions]="false"
+          [selectMultiple]="true"
+          [enableGroupManagement]="true"
+          [enableVideoAccess]="false"
+          [isInGroup]="true"
+          [selectedVideos]="selectedGroupVideos$ | async"
+          (selectVideo)="onGroupVideoSelect($event)"
+          (selectVideos)="onGroupVideosSelect($event)"
+          (itemDropped)="removeVideosFromGroup($event)"
+          (removeFromGroup)="removeVideoFromGroup($event)"
+          (dragStarted)="highlightVideosZone = true"
+          (dragEnded)="highlightVideosZone = false"
+          [videoStats]="{}"
+        >
+        </app-video-list>
+      </div>
+    </div>
+
+    <div class="video-list">
+      <h3>VIDEOS</h3>
+      <search-bar
+        (filter)="onVideosFilter($event)"
+        [enabledFilers]="['BY_NAME']"
+      >
+      </search-bar>
+      <app-video-list
+        (onLoadNextBatch)="onVideoListScrollEnd()"
+        [videos]="videos$ | async"
+        [showHeader]="false"
+        [showStats]="false"
+        [showStatus]="false"
+        [canManageVideos]="false"
+        [forceSmLayout]="false"
+        [enableActions]="false"
+        [enableVideoAccess]="false"
+        [selectMultiple]="true"
+        [enableGroupManagement]="true"
+        [selectedVideos]="selectedVideos$ | async"
+        (selectVideo)="onVideoSelect($event)"
+        (selectVideos)="onVideosSelect($event)"
+        (itemDropped)="addVideosToGroup($event)"
+        (addToGroup)="addVideoToGroup($event)"
+        [videoStats]="{}"
+        (dragStarted)="highlightGroupVideosZone = true"
+        (dragEnded)="highlightGroupVideosZone = false"
+      >
+      </app-video-list>
+    </div>
+  </div>
+
+</div>

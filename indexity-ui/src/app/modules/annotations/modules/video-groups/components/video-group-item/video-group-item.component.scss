@@ -1,0 +1,73 @@
+@import "../../../../../../../color-palette";
+
+.video-item-card{
+  animation: fadein 350ms;
+  user-select: none;
+  cursor: pointer;
+
+  mat-card-header{
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  mat-card-title {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+  }
+
+  mat-card-subtitle {
+    margin-top: 7px;
+  }
+}
+
+.description {
+  margin-bottom: 10px;
+}
+
+.content-line {
+  margin-top: 20px;
+  display: block;
+  margin-right: 15px;
+}
+
+:host {
+  display: block;
+  margin: 8px;
+}
+
+.ontology{
+  border-radius: 30px;
+  padding: 5px 10px;
+  border: 1px solid $light-1;
+  background: rgba(255,255,255, 0.2);
+  font-weight: 600;
+}
+
+.actions-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+
+
+.selected {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.status-label {
+  font-size: 13px !important;
+  margin-right: 5px;
+}
+.status-label:hover {
+  filter: brightness(150%);
+}

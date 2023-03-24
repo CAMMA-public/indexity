@@ -1,0 +1,7 @@
+node_modules/*
+dist/
+.gitlab
+.idea
+volumes
+storage
+volumes/

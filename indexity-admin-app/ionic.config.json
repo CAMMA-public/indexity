@@ -1,0 +1,7 @@
+{
+  "name": "indexity-admin-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

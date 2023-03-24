@@ -1,0 +1,1 @@
+export const ANNOTATION_MIN_DURATION = 1000 / 30;

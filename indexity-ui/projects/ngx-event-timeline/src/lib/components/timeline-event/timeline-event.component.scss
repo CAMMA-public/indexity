@@ -1,0 +1,35 @@
+@import '../../colors';
+
+.main-container {
+  height: calc(100% - 1px);
+  border-radius: 4px;
+  z-index: 1;
+  opacity: 0.6;
+  position: absolute;
+  animation: fadein 600ms;
+  //box-shadow:inset 0px 0px 0px 1px $dark-2;
+}
+
+
+.main-container:hover{
+  z-index: 1;
+  filter: brightness(140%);
+  cursor: pointer;
+}
+
+@keyframes fadein {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
+
+
+.active {
+  filter: brightness(150%);
+  opacity: 1;
+}
+
+.disabled {
+  background: #6f7273 !important;
+  opacity: 0.3;
+}

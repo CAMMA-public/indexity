@@ -1,0 +1,51 @@
+<div class="main-container" #mainContainer>
+
+  <div sizeSensor
+       #tracksContainer
+       (resized)="resize.emit($event)"
+
+       (mousemove)="onMouseMove($event)"
+       (touchmove)="onMouseMove($event)"
+       (mouseenter)="onMouseEnter($event)"
+       (mouseleave)="onMouseLeave($event)"
+       (mousedown)="onMouseDown($event)"
+       (touchstart)="onMouseDown($event)"
+       (touchend)="onMouseUp($event)"
+       (mouseup)="onMouseUp($event)"
+       (wheel)="onWheel($event)"
+       [ngStyle]="{'flex-basis': (zoom$ | async) + '%'}"
+       class="event-tracks-container"
+  >
+
+    <ngx-timeline-cursor #cursor class="timeline-cursor"></ngx-timeline-cursor>
+
+    <div class="event-track" *ngIf="timelineStore.displayDefaultTimeline$ | async">
+      <ngx-timeline-track [isDefaultTrack]="true" ></ngx-timeline-track>
+    </div>
+
+    <div class="event-track"
+         *ngFor="let et of timelineStore.timelineEventTypes; trackBy: eventTrackFn"
+    >
+      <ngx-timeline-track
+        [timelineEventType]="et"
+        [timelineEvents]="(timelineStore.groupedEvents$ | async)[et.type]"
+        (eventClick)="onEventClick($event)"
+        (eventHover)="eventHover.emit($event)"
+      ></ngx-timeline-track>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  *ngIf="hoverTimeEnabled"
+  class="hover-time"
+  data-cy="timeline-hover-time"
+  [ngStyle]="{left: hoverTimePosition.x+15+'px', top: hoverTimePosition.y+15+'px' }"
+>
+  {{hoverTime}}
+</div>
+
+

@@ -1,0 +1,17 @@
+<div
+  *ngIf="timelineEvent"
+  class="main-container"
+  (click)="onClick($event)"
+  (mouseover)="onMouseOver(timelineEvent.id)"
+  (mouseleave)="onMouseOver(null)"
+  [attr.data-cy]="'timeline-event-' + timelineEvent.id"
+  [ngClass]="{'active': eventActive$ | async, 'disabled': eventIsDisabled$ | async }"
+  [ngStyle]="{
+    background: (eventIsSelected$ | async) ? 'transparent' : timelineEventType?.color,
+    width: (timelineEvent.oneShot ? 6 : (eventWidth$ | async))+'px',
+    left: (eventPosition$ | async)+'px',
+    'box-shadow': (eventIsSelected$ | async) ? 'inset 0 0 0 2px ' + timelineEventType?.color : 'unset',
+    'z-index': (eventIsSelected$ | async) ? 1 : 2
+  }"
+  [attr.title]="timelineEvent?.title"
+></div>

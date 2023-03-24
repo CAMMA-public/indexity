@@ -1,0 +1,90 @@
+<mat-sidenav-container data-cy="nav-bar" class="max-height">
+
+  <mat-sidenav (closedStart)="sideNavClose.emit()" class="mat-sidenav" mode="over" [opened]="isSideNavOpen">
+
+    <mat-nav-list style="position: absolute; top: 0; left: 0; right: 0; padding-top: 0">
+      <mat-list-item [ngStyle]="{background: '#333', cursor: 'default'}"  [disableRipple]="true">
+        MENU
+      </mat-list-item>
+      <a mat-list-item
+         data-cy="nav-videos-btn"
+         [routerLink]="['videos']"
+         [routerLinkActiveOptions]="{exact:true}"
+         queryParamsHandling="merge"
+         routerLinkActive="active"
+         (click)="sideNavClose.emit()"
+      >
+        <mat-icon mat-list-icon>video_library</mat-icon>
+        VIDEOS
+      </a>
+
+      <a
+        mat-list-item
+        data-cy="nav-video-groups-btn"
+        routerLinkActive="active"
+        [routerLink]="['videos/groups']"
+        (click)="sideNavClose.emit()"
+      >
+        <mat-icon mat-list-icon> blur_circular</mat-icon>
+        VIDEO GROUPS
+      </a>
+
+      <a
+        mat-list-item
+        data-cy="nav-labels-btn"
+        routerLinkActive="active"
+        [routerLink]="['ontology']"
+        (click)="sideNavClose.emit()"
+      >
+        <mat-icon mat-list-icon> assignment</mat-icon>
+        ONTOLOGY
+      </a>
+    </mat-nav-list>
+    <mat-nav-list style="background: #303030; position: absolute; bottom: 0; left: 0; right: 0">
+      <a
+        mat-list-item
+        [routerLink]="['/account']"
+        (click)="sideNavClose.emit()"
+      >
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <span>{{currentUsername}}</span>
+      </a>
+      <a
+        mat-list-item
+        data-cy="nav-settings-btn"
+        (click)="openSettings.emit()"
+      >
+        <mat-icon mat-list-icon>settings</mat-icon>
+        <span>SETTINGS</span>
+      </a>
+      <a
+        mat-list-item
+        data-cy="nav-help-btn"
+        (click)="openHelp.emit()"
+      >
+        <mat-icon mat-list-icon>help</mat-icon>
+        <span>HELP</span>
+      </a>
+      <a
+        mat-list-item
+        data-cy="nav-about-btn"
+        (click)="openAbout.emit()"
+      >
+        <mat-icon mat-list-icon>info</mat-icon>
+        <span>ABOUT</span>
+      </a>
+      <mat-divider></mat-divider>
+      <a
+        mat-list-item
+        data-cy="nav-settings-btn"
+        (click)="logout.emit()"
+      >
+        <mat-icon mat-list-icon>logout</mat-icon>
+        <span>LOGOUT</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="max-height">
+    <ng-content select="[drawer-content]"></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

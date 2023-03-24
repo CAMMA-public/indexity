@@ -1,0 +1,13 @@
+<div style="margin: 0 10px" class="app-row">
+  <div style="margin-right: 10px" *ngIf="settings.activateJsonImport">
+    <input type="file" hidden #jsonUploader (change)="uploadAnnotations($event)" accept="application/json"/>
+    <button data-cy="import-annotations-btn" mat-button mat-raised-button (click)="jsonUploader.value = '';jsonUploader.click()">IMPORT ANNOTATIONS</button>
+  </div>
+  <div style="margin-right: 10px" *ngIf="settings.activateJsonExport">
+    <a mat-raised-button data-cy="export-annotations-btn" title="Download Annotations" [href]="jsonAnnotations || null" [download]="exportAnnotationsFileName" target='_blank'>EXPORT ANNOTATIONS</a>
+  </div>
+
+  <div *ngIf="settings.activateJsonExport && video">
+    <a mat-raised-button data-cy="export-annotations-btn" title="Download video" [href]="videoDownloadLink || null" [download]="video.name" target='_blank'>DOWNLOAD VIDEO</a>
+  </div>
+</div>

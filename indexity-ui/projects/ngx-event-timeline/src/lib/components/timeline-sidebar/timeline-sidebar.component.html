@@ -1,0 +1,27 @@
+<div class="main-container"
+     data-cy="timeline-sidebar">
+
+  <div
+    *ngIf="timelineStore.displayDefaultTimeline$ | async"
+    class="event-name is-default"
+    title="Timeline"
+  >
+    <span>Timeline</span>
+  </div>
+
+
+  <div
+    class="event-name"
+    *ngFor="let et of timelineEventTypes$ | async; trackBy: eventTypeTrackFn"
+    [attr.title]="et.title"
+  >
+    <input
+      *ngIf="timelineStore.filterEvents$ | async"
+      (change)="onVisibilityToggle($event, et)"
+      checked
+      type="checkbox"
+    />
+    <span>{{et.title}}</span>
+  </div>
+
+</div>

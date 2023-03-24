@@ -1,0 +1,135 @@
+@import "../../../../../../color-palette";
+
+.video-item-card{
+  animation: fadein 350ms;
+  user-select: none;
+
+  mat-card-header{
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 10px;
+  }
+
+  // ".video-item-card .mat-card-header-text" styles defined in global stylesheet
+
+  mat-card-title {
+    margin: 0px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  mat-card-content{
+    padding-top: 0;
+  }
+
+  .thumb-cover{
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    img {
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+}
+
+.infinite-scrollbar {
+  max-height: 137px;
+  overflow-y: auto;
+}
+
+.selected {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.content-line {
+  margin-top: 5px;
+  display: block;
+}
+
+:host{
+  display: block;
+  margin: 8px;
+  width: 100%;
+}
+
+.actions-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.play-arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    width: 100%;
+  }
+}
+
+.user-container {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.user-container {
+  margin-bottom: 7px;
+  .username {
+    margin-bottom: 3px;
+  }
+}
+
+.groupname {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+.info-title {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: 7px;
+  }
+}
+
+.info-panel {
+  margin-top: 10px;
+}
+
+.category-header {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px 10px 3px 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .status-label {
+    padding: 0 6px;
+    font-size: 13px;
+  }
+}
+
+.stats-error-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+

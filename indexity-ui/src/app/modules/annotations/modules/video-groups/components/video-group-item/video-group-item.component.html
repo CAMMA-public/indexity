@@ -1,0 +1,73 @@
+<mat-card
+  *ngIf="videoGroup; else noVideoGroup"
+  class="video-item-card"
+  [ngClass]="{'selected': isSelected}"
+>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon class="mat-18">folder_open</mat-icon>
+      <span [attr.data-cy]="'group-' + videoGroup.id + '-name'" style="margin-left: 6px">{{videoGroup.name}}</span>
+    </mat-card-title>
+
+    <div *ngIf="displayAdminActions" class="menu">
+      <button [attr.data-cy]="'group-' + videoGroup.id +'-menu-btn'" mat-icon-button [matMenuTriggerFor]="menu" >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <ng-template [ngIf]="enableGroupPermissions">
+          <button [attr.data-cy]="'edit-group-' + videoGroup.id + '-users-btn'" (click)="editUsers.emit(videoGroup.id)" mat-menu-item>
+            <mat-icon>supervisor_account</mat-icon>
+            MANAGE USERS
+          </button>
+        </ng-template>
+        <button [attr.data-cy]="'delete-group-' + videoGroup.id + '-btn'" (click)="remove.emit(videoGroup.id)" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>DELETE</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <mat-card-subtitle
+      [attr.data-cy]="'group-' + videoGroup.id + '-videos-counter'"
+    >
+      By: {{videoGroup.user.name}} <br>
+      {{+videosCount}} video{{videosCount === 1 ? '' : 's'}} <br/>
+      {{+usersCount}} user{{usersCount === 1 ? '' : 's'}}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="videoGroup.description || videoGroup.annotationLabelGroup">
+    <div>
+      <div *ngIf="videoGroup.description.length" class="content-line">
+        <span class="description" [attr.data-cy]="'group-' + videoGroup.id + '-description'">{{videoGroup.description}}</span>
+      </div>
+
+      <div *ngIf="videoGroup.annotationLabelGroup" class="content-line">
+        <span>Associated ontology: </span>
+        <span (click)="onLabelGroupClick($event, videoGroup.annotationLabelGroup)"  class="status-label green">
+          {{videoGroup.annotationLabelGroup.name}}
+        </span>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions
+    *ngIf="displayAdminActions">
+    <div class="actions-container">
+      <button
+        color="accent"
+        mat-flat-button
+        [attr.data-cy]="'edit-group-' + videoGroup.id + '-btn'"
+        (click)="edit.emit(videoGroup.id)"
+      >
+        MANAGE VIDEOS
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #noVideoGroup>
+  <div class="no-video-container">
+    ERROR: Video group item is not defined
+  </div>
+</ng-template>

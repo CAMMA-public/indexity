@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indexity-tracker-configs
+data:
+  INDEXITY_API_URL: 'http://indexity-api-service:8082'
+  ANNOTATOR_EMAIL: '{{.Values.trackerEmail}}'
+  ANNOTATOR_PASSWORD: '{{.Values.trackerPassword}}'
+  VIDEOS_PATH: 'videos/'
+  SERVER_PORT: '8084'
+  TRACK_INTERVAL: '100'

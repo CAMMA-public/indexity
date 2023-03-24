@@ -1,0 +1,49 @@
+@import "../../../../../../../global"
+
+.main-container
+  display: flex
+  flex-direction: row
+  height: calc(100vh - 64px)
+
+  .viewport-container
+    flex: 1 1 0
+    height: 100%
+    display: flex
+    flex-direction: column
+
+  app-media-player
+    flex: 1 1 0
+
+  app-annotations-tools
+    margin: 15px 0
+
+  .sidebar-container
+    height: 100%
+    width: 400px
+    box-sizing: border-box
+    padding: 5px
+    overflow-y: auto
+    overflow-x: hidden
+
+.sidebar-scroller
+  max-height: calc(100vh - 65px)
+  min-height: calc(100vh - 65px)
+  width: 400px
+  box-sizing: border-box
+
+#paste-btn
+  width: 100%
+  margin-bottom: 10px
+
+.selection-controls-container
+  display: flex
+  flex-direction: row
+  align-items: center
+  border-radius: 8px
+  background: rgba(0,0,0,0.2)
+  padding: 4px 4px 4px 15px
+
+
+.annotations-toolbar
+  display: flex
+

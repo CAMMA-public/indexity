@@ -1,0 +1,19 @@
+@import "styles/variables";
+@import "styles/mixins";
+@import "styles/reset";
+@import "styles/header";
+@import "styles/responsive";
+@import "styles/banner";
+@import "styles/section-intro";
+@import "styles/home";
+@import "styles/btn";
+
+
+.logo_h {
+  padding: 0;
+  .logo-img {
+    height: 42px;
+    width: auto;
+    margin-bottom: -7px;
+  }
+}

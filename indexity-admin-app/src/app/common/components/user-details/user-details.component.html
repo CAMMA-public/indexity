@@ -1,0 +1,145 @@
+<ion-card *ngIf="user">
+  <ion-card-header>
+    <ion-card-subtitle>{{user.name}}</ion-card-subtitle>
+    <ion-card-title color="secondary">{{user.email}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content style="padding: 0">
+
+    <!-- Item Labels -->
+
+    <div *ngIf="userStats">
+      <ion-list inset="false" lines="full">
+
+        <ion-item [disabled]="userStats.annotatedVideoIds.length === 0" button detail  [routerLink]="['/videos']" [queryParams]="{videoIds: userStats.annotatedVideoIds}">
+          <ion-label>Annotated videos</ion-label>
+          <ion-badge>{{userStats.annotatedVideoIds.length}}</ion-badge>
+        </ion-item>
+
+        <ion-item [disabled]="userStats.uploadedVideoIds.length === 0" button detail  [routerLink]="['/videos']" [queryParams]="{videoIds: userStats.uploadedVideoIds}">
+          <ion-label>Uploaded videos:</ion-label>
+          <ion-badge >{{userStats.uploadedVideoIds.length}}</ion-badge>
+        </ion-item>
+
+
+
+        <ion-item [disabled]="userStats.groupIds.length === 0" button detail  [routerLink]="['/video-groups']" [queryParams]="{groupIds: userStats.groupIds}">
+          <ion-label>Groups: </ion-label>
+          <ion-badge >{{userStats.groupIds.length}}</ion-badge>
+        </ion-item>
+
+      </ion-list>
+    </div>
+  </ion-card-content>
+
+</ion-card>
+
+<ion-card *ngIf="userStats">
+
+  <ion-card-header>
+    <ion-card-subtitle>More details</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content style="padding: 0;">
+
+    <!-- Item Labels -->
+
+    <div>
+      <ion-list  inset="false" lines="full">
+
+
+        <ion-item>
+          <ion-label>Account status:</ion-label>
+          <ion-badge
+                  [color]="user.isActivated ? 'success' : 'danger'"  style="margin-right: 3px" >{{user.isActivated ? 'ACTIVATED' : 'DISABLED'}}</ion-badge>
+
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>Roles:</ion-label>
+          <ion-badge  style="margin-right: 3px" *ngFor="let r of user.roles">{{r}}</ion-badge>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Total annotations:</ion-label>
+          <ion-badge >{{userStats.annotationIds.length}}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <ion-label>Account age:</ion-label>
+          <ion-badge >{{userStats.createdAt | dateAgo}}</ion-badge>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>IP address:</ion-label>
+          <ion-badge >{{userStats.ipAddress}}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="user">
+  <ion-card-header>
+    <ion-card-subtitle>Actions</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-item *ngIf="canEdit">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Administrator</ion-label>
+      <ion-toggle
+        [checked]="userIsAdmin(user)"
+        (click)="editRole.emit({ user: user, role: USER_ROLE.ADMIN })"
+      ></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="canEdit">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Moderator</ion-label>
+      <ion-toggle
+        [checked]="userIsMod(user)"
+        (click)="editRole.emit({ user: user, role: USER_ROLE.MODERATOR })"
+      ></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="create"></ion-icon>
+      <ion-label>User information</ion-label>
+      <ion-button (click)="presentUpdateUserDialog()">
+        Edit
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="create"></ion-icon>
+      <ion-label>Password</ion-label>
+      <ion-button (click)="presentUpdatePasswordDialog()">
+        Edit
+      </ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="!user.isActivated">
+      <ion-icon name="mail"></ion-icon>
+      <ion-label>Activation email</ion-label>
+      <ion-button (click)="sendActivationEmail.emit(user.id)">
+        Send
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="mail"></ion-icon>
+      <ion-label>Password reset email</ion-label>
+      <ion-button (click)="sendPasswordResetEmail.emit(user.id)">
+        Send
+      </ion-button>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+
+<ion-fab (click)="onMoreOptions()" vertical="bottom" horizontal="end"  slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="more"></ion-icon>
+  </ion-fab-button>
+
+</ion-fab>

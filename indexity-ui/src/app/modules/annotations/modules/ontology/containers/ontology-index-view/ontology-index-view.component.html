@@ -1,0 +1,44 @@
+<mat-toolbar>
+  <button (click)="createGroup()" color="accent" mat-button mat-flat-button>
+
+    <span style="display: flex; align-items: center;">
+      <mat-icon style="margin-right: 5px">add</mat-icon>
+      CREATE
+    </span>
+
+  </button>
+</mat-toolbar>
+
+<div class="main-container">
+
+  <div  class="ontology-list">
+    <app-search-field
+      class="search-field"
+      [initialValue]="groupsFilter$ | async"
+      (search)="onGroupsSearch($event)"
+      [debounce]="0"
+    ></app-search-field>
+    <perfect-scrollbar
+      class="item-list"
+      [config]="{wheelPropagation: false}"
+    >
+      <app-ontology-item
+        (videoGroupClick)="onVideoGroupClick($event)"
+        (click)="onOntologyClick(g)"
+        (edit)="onGroupManage(g)"
+        (delete)="onGroupDelete($event)"
+        (dblclick)="onGroupManage(g)"
+        *ngFor="let g of groups$ | async; trackBy: trackByFn"
+        [group]="g"
+        [userCanManage]="userCanManageGroup(g) | async"
+        class="ontology-item"
+      ></app-ontology-item>
+
+    </perfect-scrollbar>
+  </div>
+
+  <div class="label-list">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

@@ -1,0 +1,69 @@
+<div class="padded">
+  <mat-tab-group
+    class="max-height"
+    color="accent"
+    #videoTabs
+    [animationDuration]="'250ms'"
+    [selectedIndex]="selectedTab$ | async"
+    (selectedTabChange)="onTabChange($event)"
+  >
+    <mat-tab class="video-list-mat-tab max-height">
+      <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">list</mat-icon>
+          <span data-cy="all-videos-tab">ALL VIDEOS</span>
+      </ng-template>
+
+      <ng-template matTabContent>
+        <app-video-list
+          class="max-height"
+          [canManageVideos]="userCanManageVideos$ | async"
+          [videos]="videos$ | async"
+          [currentUserId]="currentUserId$ | async"
+          [currentFilter]="currentVideosFilter$ | async"
+          [uploading]="uploading$ | async"
+          [videoStats]="videoStats$ | async"
+          [videoGroups]="videoGroupsMap$ | async"
+          [bookmarkedIds]="bookmarkedIds$ | async"
+          [isSmLayout]="isSmLayout$ | async"
+          (setVideoAnnotationState)="onSetAnnotationProgressState($event)"
+          (bookmark)="videosStoreFacade.addVideoBookmark($event)"
+          (removeBookmark)="videosStoreFacade.removeVideoBookmark($event)"
+          (deleteVideo)="onDelete($event)"
+          (renameVideo)="onRenameVideo($event.id, $event.name)"
+          (upload)="onUpload($event)"
+          (retryVideoStats)="onRetryVideoStats($event)"
+          (filter)="onVideosFilter($event)"
+          (onLoadNextBatch)="onLoadNextBatch()"
+        ></app-video-list>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">star</mat-icon>
+          <span data-cy="bookmarks-tab">BOOKMARKED VIDEOS</span>
+          <span data-cy="bookmarks-count" style="margin-left: 5px" *ngIf="(bookmarkedVideosTotal$ | async)">
+           ({{(bookmarkedVideosTotal$ | async)}})
+         </span>
+      </ng-template>
+
+        <app-video-list
+          [showHeader]="false"
+          [canManageVideos]="userCanManageVideos$ | async"
+          [videos]="bookmarkedVideos$ | async"
+          [videoStats]="videoStats$ | async"
+          [bookmarkedIds]="bookmarkedIds$ | async"
+          [isSmLayout]="isSmLayout$ | async"
+          (setVideoAnnotationState)="onSetAnnotationProgressState($event)"
+          (bookmark)="videosStoreFacade.addVideoBookmark($event)"
+          (removeBookmark)="videosStoreFacade.removeVideoBookmark($event)"
+          (deleteVideo)="onDelete($event)"
+          (renameVideo)="onRenameVideo($event.id, $event.name)"
+          (upload)="onUpload($event)"
+          (retryVideoStats)="onRetryVideoStats($event)"
+          (onLoadNextBatch)="onLoadNextBookmarkBatch()"
+        ></app-video-list>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

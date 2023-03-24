@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: indexity-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/websocket-services: "indexity-api-service"
+spec:
+  {{ if .Values.enableTls }}
+  tls:
+  - hosts:
+    - {{.Values.domainName}}
+    secretName: secret-tls
+  {{ end }}
+  rules:
+    - host: {{.Values.domainName}}
+      http:
+        paths:
+          - backend:
+              serviceName: indexity-ui-service
+              servicePort: 8083
+
+    - host: {{print "api." .Values.domainName}}
+      http:
+        paths:
+          - backend:
+              serviceName: indexity-api-service
+              servicePort: 8082
+
+    - host: {{print "admin." .Values.domainName}}
+      http:
+        paths:
+          - backend:
+              serviceName: indexity-admin-service
+              servicePort: 8085
+

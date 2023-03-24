@@ -1,0 +1,27 @@
+# dependencies
+/node_modules
+
+# IDE
+.idea
+/.awcache
+/.vscode
+.idea
+
+# misc
+npm-debug.log
+
+# example
+/quick-start
+
+# tests
+/test
+/coverage
+/.nyc_output
+
+# dist
+/dist
+/storage
+/videos
+/volumes
+
+annotation-state-null-results.json

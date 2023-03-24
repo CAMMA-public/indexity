@@ -1,0 +1,200 @@
+<mat-card *ngIf="video; else noVideo" class="video-item-card" [ngClass]="{'selected': isSelected}">
+  <mat-card-header>
+    <mat-card-title>
+      {{video.name}}
+    </mat-card-title>
+
+    <div *ngIf="displayAdminActions" class="menu">
+      <button data-cy="video-menu-btn" mat-icon-button [matMenuTriggerFor]="menu" >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="rename.emit(video)">
+          <mat-icon>create</mat-icon>
+          <span>RENAME</span>
+        </button>
+        <button data-cy="delete-video-btn" (click)="remove.emit(video)" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>DELETE</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div *ngIf="enableGroupManagement">
+      <button
+        *ngIf="!groupManagementMode"
+        matTooltip="Add video to group"
+        matTooltipPosition="left"
+        [attr.data-cy]="'add-video-' + video.id + '-to-group'"
+        (click)="addToGroup.emit(video.id)"
+        mat-icon-button
+      >
+        <mat-icon >add_circle_outline</mat-icon>
+      </button>
+
+      <button
+        *ngIf="groupManagementMode"
+        matTooltip="Remove video from group"
+        matTooltipPosition="left"
+        (click)="removeFromGroup.emit(video.id)"
+        [attr.data-cy]="'remove-video-' + video.id + '-from-group'"
+        mat-icon-button color="warn"
+      >
+        <mat-icon >remove_circle_outline</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  <div class="thumb-cover">
+    <a  [routerLink]="['/annotations/videos', video.id]" *ngIf="video.thumbnailUrl && enableVideoAccess">
+      <img
+        mat-card-image
+        alt="Open"
+        [attr.data-cy]="'video-' + video.id + '-thumbnail'"
+        [src]="video.thumbnailUrl"
+      />
+    </a>
+
+    <img
+      mat-card-image
+      *ngIf="video.thumbnailUrl && !enableVideoAccess"
+      alt="Open"
+      style="cursor: default"
+      [attr.data-cy]="'video-' + video.id + '-thumbnail'"
+      [src]="video.thumbnailUrl"
+    />
+  </div>
+
+  <mat-card-content>
+
+    <div *ngIf="showStatus; else statusPlaceholder" class="content-line">
+      <status-line
+        [currentState]="video.annotationState"
+        [annotationStates]="annotationStates"
+        [authorizedStates]="authorizedStates"
+        (annotationStateChange)="onAnnotationStateChange($event)"
+      ></status-line>
+    </div>
+
+    <mat-expansion-panel (afterExpand)="retryVideoStats.emit(video)" *ngIf="showStats" class="info-panel">
+      <mat-expansion-panel-header [attr.data-cy]="'video-' + video.id + '-info-expansion-panel-header'">
+        <mat-panel-title class="info-title">
+          <mat-icon>info</mat-icon>
+          <span>MORE INFO</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="videoStats; else noStatsError" class="expansion-container">
+        <div class="category-header">
+          <span>ANNOTATIONS:</span>
+          <span class="status-label" [attr.data-cy]="'video-' + video.id + '-annotations-count'">{{videoStats.annotationsCount}}</span>
+        </div>
+
+        <div class="content-line labels-line" [attr.data-cy]="'video-' + video.id + '-labels'">
+          <div class="category-header">
+            <span>LABELS:</span>
+            <span class="status-label" [attr.data-cy]="'video-' + video.id + '-labels-count'">{{videoStats.annotationLabels.length}}</span>
+          </div>
+
+          <div
+            class="infinite-scrollbar"
+            infinite-scroll
+            [scrollWindow]="false"
+          >
+            <app-annotation-label-item
+              *ngFor="let label of videoStats.annotationLabels"
+              [label]="label"
+            ></app-annotation-label-item>
+          </div>
+        </div>
+
+
+        <div class="groups-line content-line" [attr.data-cy]="'video-' + video.id + '-groups'">
+          <div class="category-header">
+            <span>GROUPS:</span>
+            <span class="status-label" [attr.data-cy]="'video-' + video.id + '-groups-count'">{{videoGroups.length}}</span>
+          </div>
+          <div
+            class="infinite-scrollbar"
+            infinite-scroll
+            [scrollWindow]="false"
+          >
+            <div class="user-container" *ngFor="let group of videoGroups">
+              <div [routerLink]="['/annotations', 'videos', 'groups', group.id]"  class="groupname">{{group.name}}</div>
+              <mat-divider [inset]="true"></mat-divider>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="users-line content-line" [attr.data-cy]="'video-' + video.id + '-users'">
+          <div class="category-header">
+            <span>USERS:</span>
+            <span class="status-label" [attr.data-cy]="'video-' + video.id + '-users-count'">{{videoStats.users.length}}</span>
+          </div>
+          <div
+            class="infinite-scrollbar"
+            infinite-scroll
+            [scrollWindow]="false"
+          >
+            <div class="user-container" *ngFor="let user of videoStats.users">
+              <div class="username">{{user.name}}</div>
+              <mat-divider [inset]="true"></mat-divider>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </mat-expansion-panel>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <div class="play-arrow-container" *ngIf="!enableActions">
+      <a mat-flat-button color="accent"
+         [attr.data-cy]="'show-video-' + video.id + '-btn'"
+         [routerLink]="['/annotations/videos', video.id]"
+         queryParamsHandling="merge"
+      >
+        <mat-icon>play_arrow</mat-icon>
+      </a>
+    </div>
+
+    <div class="actions-container" *ngIf="enableActions">
+      <a mat-flat-button color="accent"
+         [attr.data-cy]="'show-video-' + video.id + '-btn'"
+         [routerLink]="['/annotations/videos', video.id]"
+         queryParamsHandling="merge"
+      >
+        <mat-icon>play_arrow</mat-icon>
+      </a>
+
+      <button
+        [attr.data-cy]="'bookmark-video-' + video.id + '-btn'"
+        class="bookmark-video-btn"
+        mat-stroked-button
+        (click)="bookmark.emit({video: video, bookmarked: !isBookmarked})"
+      >
+        <mat-icon *ngIf="!isBookmarked">star_border</mat-icon>
+        <mat-icon *ngIf="isBookmarked">star</mat-icon>
+      </button>
+    </div>
+
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #noVideo>
+  <div class="no-video-container">
+    ERROR: Video item is not defined
+  </div>
+</ng-template>
+
+<ng-template #statusPlaceholder>
+  <div class="status-placeholder" *ngIf="showStatus" style="height: 26px; width: 100%;"></div>
+</ng-template>
+
+
+<ng-template #noStatsError>
+  <div style="width: 100%">
+    Loading...
+  </div>
+</ng-template>

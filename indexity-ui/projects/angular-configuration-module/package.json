@@ -1,0 +1,12 @@
+{
+  "name": "angular-configuration-module",
+  "description": "Angular module for dynamic configuration.",
+  "author": "IRCAD/IHU RD TEAM",
+  "keywords": ["angular", "typescript", "library"],
+  "version": "0.0.0",
+  "peerDependencies": {
+    "@angular/common": "^9.1.3",
+    "@angular/core": "^9.1.3",
+    "tslib": "^1.10.0"
+  }
+}

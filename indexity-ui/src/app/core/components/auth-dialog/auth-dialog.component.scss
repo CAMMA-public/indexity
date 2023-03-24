@@ -1,0 +1,41 @@
+@import "../../../../color-palette";
+
+
+.main-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  flex-direction: column;
+  color: $light-2;
+  a {
+    color: $light-2;
+    cursor: pointer;
+    font-size: 16px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.additional-container{
+  margin-top: 40px;
+}
+
+.form-container {
+
+  width: 100%;
+}
+
+
+.title {
+
+  margin-bottom: 40px;
+  font-size: 3em;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+

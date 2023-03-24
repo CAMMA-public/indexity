@@ -1,0 +1,34 @@
+<div class="main-container">
+
+  <ngx-timeline-toolbar
+    *ngIf="showToolbar"
+    [timeScaleLabel]="timeScaleLabel"
+    (rewind)="rewind.emit()"
+    (forwardNext)="forwardNext.emit()"
+    (currentTimeClicked)="onCurrentTimeClicked()"
+    (setCurrentTimeClicked)="onSetCurrentTimeClicked()"
+  >
+    <ng-content custom-controls-right select="[custom-controls-right]"></ng-content>
+    <ng-content custom-controls-left select="[custom-controls-left]"></ng-content>
+  </ngx-timeline-toolbar>
+
+  <div *ngIf="timelineStore.timelineEventTypes; else placeholder" class="timeline-main-container">
+
+    <ngx-timeline-sidebar *ngIf="showSidebar"></ngx-timeline-sidebar>
+
+    <ngx-timeline-tracks
+      [cursorEventMagnet]="cursorEventMagnet"
+      (cursorMove)="cursorMove.emit($event)"
+      (eventClick)="eventClick.emit($event)"
+      (eventHover)="eventHover.emit($event)"
+      (resize)="onTimelineResized($event)"
+
+    ></ngx-timeline-tracks>
+
+  </div>
+
+</div>
+
+<ng-template #placeholder>
+  <div class="timeline-placeholder animated-background"></div>
+</ng-template>

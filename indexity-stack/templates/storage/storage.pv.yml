@@ -1,0 +1,68 @@
+{{- if .Values.dbVolumeMountPath}}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-volume-{{.Release.Namespace}}
+  labels:
+    tier: db-volume
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: {{.Values.dbVolumeMountPath}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-storage-claim
+spec:
+  storageClassName: ""
+  selector:
+    matchLabels:
+      tier: db-volume
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 18Gi
+
+{{- end}}
+
+################################################################
+
+{{- if .Values.apiVolumeMountPath}}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: api-volume-{{.Release.Namespace}}
+  labels:
+    tier: api-volume
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: {{.Values.apiVolumeMountPath}}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: api-storage-claim
+spec:
+  storageClassName: ""
+  selector:
+    matchLabels:
+      tier: api-volume
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 18Gi
+---
+{{- end}}

@@ -1,0 +1,23 @@
+@import "../../colors";
+
+.main-container{
+  position: relative;
+  height: 30px;
+  animation: fadein 600ms;
+}
+
+.is-disabled {
+  opacity: 0.1;
+}
+
+
+.is-default {
+  background: $teal-3;
+  opacity: 0.3;
+}
+
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

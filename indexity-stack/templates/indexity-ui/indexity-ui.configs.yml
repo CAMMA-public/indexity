@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indexity-ui-configs
+data:
+  APICONFIG_BASEURL: "{{.Values.indexityUiImage.apiConfigBaseUrl}}"
+  SOCKETCONFIG_BASEURL: "{{.Values.indexityUiImage.socketConfigBaseUrl}}"
+  JWTSETTINGS_WHITELISTEDDOMAINS: "{{.Values.indexityUiImage.jwtSettingsWhitelistedDomains}}"

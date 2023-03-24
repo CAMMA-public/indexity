@@ -1,0 +1,43 @@
+<ngx-timeline-toolbar
+  [currentTimestamp]="formattedVideoTime"
+  [timeScaleLabel]="currentTimeScaleLabel"
+  [isPlaying]="isVideoPlaying"
+  (currentTimeClicked)="currentTimeClicked.emit()"
+  (setCurrentTimeClicked)="onSetCurrentTime()"
+  (play)="onSetIsVideoPlaying(true)"
+  (pause)="onSetIsVideoPlaying(false)"
+  (rewind)="setCurrentTime(0)"
+  (forwardNext)="seekNextEvent.emit()"
+  data-cy="timeline-toolbar"
+>
+  <div custom-controls-left>
+    <button aria-label="playback speed button" (click)="updatePlaybackRate.emit()">{{ playbackRate }}x</button>
+  </div>
+  <div custom-controls-right>
+    <button style="margin-right:10px;" (click)="showSidebar = !showSidebar">TOGGLE SIDEBAR</button>
+    <span id="video-duration">{{formattedVideoDuration$ | async}}</span>
+  </div>
+</ngx-timeline-toolbar>
+
+<perfect-scrollbar [config]="{wheelPropagation: false}" style="max-height: 100%;" >
+  <ngx-event-timeline
+
+    #timeline
+    data-cy="timeline"
+    [displayDefaultTimeline]="!annotations.length"
+    [timelineEventTypes]="annotationEventTypes"
+    [timelineEvents]="annotationEvents"
+    [totalTime]="videoDuration"
+    [highlightedEvents]="highlightedAnnotations"
+    [disabledEvents]="hiddenAnnotations"
+    [selectedEvents]="selectedAnnotations"
+    [showToolbar]="false"
+    [showSidebar]="showSidebar"
+    [currentTimestamp]="videoTime"
+    (cursorMove)="setCurrentTime($event / 1000)"
+    (zoomed)="onZoomed($event)"
+    (eventClick)="onEventClick($event)"
+    (eventHover)="eventHover.emit($event)"
+    [zoom]="zoom"
+  ></ngx-event-timeline>
+</perfect-scrollbar>

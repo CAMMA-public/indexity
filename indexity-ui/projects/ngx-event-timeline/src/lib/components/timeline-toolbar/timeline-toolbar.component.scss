@@ -1,0 +1,91 @@
+@import '../../colors';
+
+.main-container{
+  height: 30px;
+  background: $dark-1;
+  display: flex;
+  color: $light-2;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.current-time{
+  font-family: "Courier New";
+  cursor: pointer;
+}
+
+button {
+  color: $blue-4;
+  cursor: pointer;
+  border: 1px solid $blue-2;
+  line-height: 1.3em;
+  border-radius: 3px;
+  background: rgba(0,155,255, 0.2);
+  max-height: 21px;
+}
+
+[custom-controls-left]{
+  margin-left: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+[custom-controls-right]{
+  margin-right: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-side-tools{
+
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  button {
+    margin: 1px
+  }
+}
+
+
+
+.left-side-tools{
+  padding-left: 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+
+.middle-side-tools{
+  flex-shrink: 0;
+}
+
+.rewind-btn{
+  border-right: none !important;
+  border-radius: 3px 0 0 3px !important;
+}
+
+.next-btn{
+  border-left: none !important;
+  border-radius: 0 3px 3px 0 !important;
+}
+
+
+.play-btn, .pause-btn{
+  border-radius: 0 0 0 0 !important;
+}
+

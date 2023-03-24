@@ -1,0 +1,27 @@
+@import "../../../../../../color-palette";
+.label-container {
+  height: 30px;
+  margin-bottom: 3px;
+  border: 1px $light-4 solid;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(0,0,0,.2);
+
+  .label-name{
+    margin: 0 7px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+  .label-color {
+    height: 26px;
+    min-width: 26px;
+    width: 26px;
+    margin-left: 2px;
+    background: gray;
+    border-radius: 15px;
+  }
+
+
+}

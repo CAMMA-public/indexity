@@ -1,0 +1,20 @@
+@import "../../../../../../../color-palette";
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 8vh;
+  margin-bottom: 15px;
+
+  .right {
+    display: flex;
+
+    button, app-upload-videos-button {
+      margin-right: 10px;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+  }
+}

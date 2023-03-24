@@ -1,0 +1,114 @@
+image: docker:19
+stages:
+  - setup
+  - lints
+  - tests
+  - build
+  - deploy
+
+
+before_script:
+  - export PYTHONPATH="$PYTHONPATH:$CI_PROJECT_DIR/python-dependencies"
+  - export PATH="$PATH:$CI_PROJECT_DIR/python-dependencies/bin"
+
+prepare:
+  image: python:3.7-alpine
+  stage: setup
+  tags:
+    - indexity
+  script:
+    - apk add --no-cache bash git gcc musl-dev libffi-dev openssl-dev curl
+    - pip3 install --target="python-dependencies" -r requirements.txt -r doc/requirements.txt
+  artifacts:
+    paths:
+      - python-dependencies
+    expire_in: 30 min
+
+lint:flake8:
+  image: python:3.7-alpine
+  stage: lints
+  tags:
+    - indexity
+  dependencies:
+    - prepare
+  script:
+    - invoke flake8
+
+rst-lint:
+  image: python:3.7-alpine
+  stage: lints
+  tags:
+    - indexity
+  dependencies:
+    - prepare
+  script:
+    - invoke rstlint
+
+test:
+  image: python:3.7-alpine
+  stage: tests
+  tags:
+    - indexity
+  script:
+    - invoke test
+
+build-package:
+  image: python:3.7-alpine
+  stage: build
+  tags:
+    - indexity
+  dependencies:
+    - prepare
+  script:
+    - apk add --no-cache git
+    - invoke package
+  # Use all untracked files (generated files) as artifacts
+  # Used in the next stage
+  artifacts:
+    untracked: true
+    expire_in: 30 min
+
+build-doc:
+  image: python:3.7-alpine
+  stage: build
+  tags:
+    - indexity
+  dependencies:
+    - prepare
+  script:
+    - apk add --no-cache make
+    - mkdir _static
+    - invoke builddoc
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - $CI_PROJECT_DIR/doc/_build/html/
+
+deploy-package:
+  image: python:3.7-alpine
+  stage: deploy
+  tags:
+    - indexity
+  dependencies:
+    - prepare
+    - build-package
+  script:
+    # BAD FIX: Use Gitlab public IP to circumvent certificate issues
+    - "[[ \"x$GITLAB_PUBLIC_IP\" != \"x\" ]] && echo \"$GITLAB_PUBLIC_IP git.ircad.fr\" >> /etc/hosts"
+    - apk add --no-cache git
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token invoke upload
+
+deploy-doc:
+  image: python:3.7-alpine
+  stage: deploy
+  tags:
+    - indexity
+  dependencies:
+    - build-doc
+  script:
+    - mv doc/_build/html/ public/
+  artifacts:
+    paths:
+    - public
+  only:
+    - tags

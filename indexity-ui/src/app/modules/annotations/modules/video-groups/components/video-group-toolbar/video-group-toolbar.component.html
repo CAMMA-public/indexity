@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <div>
+    <button mat-stroked-button (click)="back.emit()"> <mat-icon>chevron_left</mat-icon> </button>
+  </div>
+  <div class="right">
+    <app-upload-videos-button
+      *ngIf="canManageGroup"
+      (upload)="uploadToGroup.emit($event)"
+      [inProgress]="uploading"
+    ></app-upload-videos-button>
+
+    <button data-cy="edit-group-btn" mat-flat-button (click)="edit.emit(videoGroup)">
+      Edit
+    </button>
+  </div>
+</mat-toolbar>

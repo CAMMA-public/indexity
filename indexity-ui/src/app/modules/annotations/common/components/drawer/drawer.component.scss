@@ -1,0 +1,16 @@
+.mat-sidenav {
+  min-width: 300px;
+  mat-icon {
+    margin-right: 10px
+  }
+}
+
+.mat-sidenav {
+  position: fixed;
+}
+
+a.active {
+  background: rgba(255,255,255, 0.1);
+  border-top: 1px solid rgba(255,255,255, 0.13);
+  border-bottom: 1px solid rgba(255,255,255, 0.13);
+}

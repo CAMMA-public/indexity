@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1  # API version
+kind: Deployment
+metadata:
+  name: redis-master # Unique name for the deployment
+
+spec:
+  selector:
+    matchLabels: # This deployment applies to the Pods matching these labels
+      app: redis
+      role: master
+      tier: backend
+
+  replicas: 1        # Run a single pod in the deployment
+  template: # Template for the pods that will be created by this deployment
+    metadata:
+      labels: # Labels to be applied to the Pods in this deployment
+        app: redis
+        role: master
+        tier: backend
+        env: {{.Values.env}}
+    spec: # Spec for the container which will be run inside the Pod.
+      containers:
+        - name: master
+          image: redis:5.0.4
+          ports:
+            - containerPort: 6379
+

@@ -1,0 +1,31 @@
+<mat-card *ngIf="label" class="ontology-item">
+  <mat-card-header>
+    <mat-card-title>
+      <div class="label-color" [ngStyle]="{background: label.color}"></div>
+      <span>{{label.name}}</span>
+    </mat-card-title>
+
+    <div *ngIf="groupEditMode">
+      <button
+        *ngIf="!isInGroup"
+        matTooltip="Add video to group"
+        matTooltipPosition="left"
+        (click)="addToGroup.emit(label.name)"
+        mat-icon-button
+      >
+        <mat-icon >add_circle_outline</mat-icon>
+      </button>
+
+      <button
+        *ngIf="isInGroup"
+        matTooltip="Remove video from group"
+        matTooltipPosition="left"
+        (click)="removeFromGroup.emit(label.name)"
+        mat-icon-button color="warn"
+      >
+        <mat-icon >remove_circle_outline</mat-icon>
+      </button>
+    </div>
+
+  </mat-card-header>
+</mat-card>

@@ -1,0 +1,9 @@
+{
+  "projectId": "xeqfe7",
+  "baseUrl": "http://localhost:4200",
+  "numTestsKeptInMemory": 0,
+  "ignoreTestFiles": ["**/examples/*.spec.js"],
+  "env": {
+    "apiUrl": "http://localhost:8082"
+  }
+}

@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'material-dark-theme'
+@import './color-palette'
+@import './global'
+body
+  margin: 0
+  padding: 0
+  font-family: 'Roboto', sans-serif
+  font-weight: normal
+  background-color: #303030 !important
+  color: $light-1 !important
+  min-height: 100vh
+  min-width: 100%
+
+html, body
+  margin: 0
+  box-sizing: border-box
+  height: 100%
+  background-color: #303030
+
+.padded
+  padding: 20px
+
+button:focus
+  outline: 0
+
+.br-20 > mat-dialog-container
+  border-radius: 20px
+
+input:focus
+  outline: 0
+
+a:focus
+  outline: 0
+
+.mat-expansion-panel-body
+  padding: 10px !important
+
+.mat-expansion-panel-header
+  padding-left: 10px !important
+  padding-right: 10px !important
+
+.mat-drawer-content
+  overflow: hidden !important
+
+.ps.ps--active-y > .ps__rail-y
+  background: transparent
+
+.ps.ps--scrolling-y > .ps__rail-y
+  background-color: transparent !important
+
+button:focus
+  outline: 0!important
+
+/* width */
+::-webkit-scrollbar
+  width: 12px
+
+/* Track */
+::-webkit-scrollbar-track
+  box-shadow: inset 0 0 4px $light-4
+  border-radius: 5px
+
+/* Handle */
+::-webkit-scrollbar-thumb
+  background: $light-4
+  border-radius: 5px
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+  background: $light-3
+
+/* Style .mat-card-header-text without breaking encapsulation (ng-deep) */
+.video-item-card .mat-card-header-text
+  flex: 1
+  overflow: hidden
+  margin: 2px
+

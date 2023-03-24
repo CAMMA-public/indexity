@@ -1,0 +1,20 @@
+<mat-card class="video-list-toolbar-container">
+  <mat-card-content class="video-list-toolbar">
+
+    <search-bar
+      [currentFilter]="currentFilter"
+      [labels]="labels"
+      (filter)="onFilter($event)"
+    >
+    </search-bar>
+
+    <div class="right-side">
+      <app-upload-videos-button
+        *ngIf="canManageVideos"
+        [inProgress]="inProgress"
+        (upload)="upload.emit($event)"
+      ></app-upload-videos-button>
+    </div>
+
+  </mat-card-content>
+</mat-card>

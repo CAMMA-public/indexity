@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      User details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- List of Text Items -->
+  <app-user-details
+    [user]="user$ | async"
+    [userStats]="userStats$ | async"
+    [canEdit]="user?.id !== currentUserId"
+    (activate)="activateUser($event.user, $event.isActivated)"
+    (edit)="editUser($event)"
+    (editRole)="editRole($event.user, $event.role)"
+    (sendActivationEmail)="sendActivationEmail($event)"
+    (sendPasswordResetEmail)="sendPasswordResetEmail($event)"
+    (deleteUser)="deleteUser($event)"
+    (updatePassword)="updatePassword($event)"
+  ></app-user-details>
+</ion-content>

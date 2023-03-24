@@ -1,0 +1,27 @@
+mat-card {
+  margin: 5px 0;
+  animation: fadein 350ms;
+}
+
+mat-card-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+mat-card-subtitle {
+  margin: 0;
+}
+
+.status-label {
+  margin-left: 8px;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+

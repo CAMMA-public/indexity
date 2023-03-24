@@ -1,0 +1,8 @@
+<div *ngIf="!inProgress">
+  <input type="file" hidden #uploader multiple (change)="onFilesChange($event)" accept="video/mp4"/>
+  <button class="upload-btn" mat-flat-button color="accent" (click)="uploader.click()">
+    <mat-icon [inline]="true">add</mat-icon>
+    Add videos
+  </button>
+</div>
+<mat-progress-spinner [diameter]="50" *ngIf="inProgress" mode="indeterminate"></mat-progress-spinner>

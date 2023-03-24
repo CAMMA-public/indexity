@@ -1,0 +1,711 @@
+<ul class="sidenav">
+  <li
+    *ngFor="let title of titles"
+    (click)="scrollTo(title.id)"
+  >
+    {{title.innerHTML}}
+  </li>
+</ul>
+
+<div class="container-fluid main">
+  <h1>Indexity 1.3.0 - User documentation</h1>
+
+  <!------------  INTRODUCTION  ------------>
+  <section class="row">
+    <h2 id="introduction" class="col-12">Introduction</h2>
+    <article class="col-12">
+      <p>Indexity is a video annotation platform</p>
+      <ul>
+        <li>web-app</li>
+        <li>easy to use</li>
+        <li>collaborative</li>
+        <li>low hardware requirements</li>
+        <li>public API for machine learning</li>
+      </ul>
+    </article>
+  </section>
+
+  <!------------  ARCHITECTURE  ------------>
+  <section class="row">
+    <h2 id="architecture" class="col-12">Architecture</h2>
+    <article class="col-12">
+
+      <img src="/assets/platform_diag.png" alt="architecture" title="" />
+
+      <p>Indexity is composed of several services:</p>
+
+      <ul>
+        <li>
+          <b>Indexity-ui</b> (web-app)
+          <ul>
+            <li>Serve HTML web pages for annotators</li>
+            <li>Interacts with Indexity-api</li>
+          </ul>
+        </li>
+        <li>
+          <b>Indexity-api</b> (backend)
+          <ul>
+            <li>Manage video files storage</li>
+            <li>Manage annotations database</li>
+            <li>Video properties</li>
+            <li>Labels</li>
+            <li>Annotations</li>
+            <li>Users</li>
+            <li>Provide a REST API</li>
+            <li>GET/POST videos, annotations,…</li>
+          </ul>
+        </li>
+        <li>
+          <b>Indexity-admin</b> (admin app)
+          <ul>
+            <li>Serve HTML web pages for administrators</li>
+            <li>Manage </li>
+            <li>Users</li>
+            <li>Authorizations</li>
+          </ul>
+        </li>
+        <li>
+          <b>Indexity-structure-tracker</b> (automatic structure tracker)
+          <ul>
+            <li>Manage automatic tracking for spatial annotations</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </section>
+
+  <!------------  LOGIN/SIGNUP  ------------>
+  <section class="row">
+    <article class="col-12 col-lg-6">
+      <h2 id="signup">Signup</h2>
+
+      <p>To create an account on Indexity, just click on the <code>Signup</code> button in the top right corner of the website.</p>
+
+      <img src="/assets/documentation/signup_button.jpg" alt="signup button" />
+
+      <p>After clicking on the <code>Signup</code> button, a popup appears.</p>
+
+      <p>You have to specify :</p>
+      <ul>
+        <li>your <code>name</code>: it will be used to display the author of the annotations, videos, groups, etc</li>
+        <li>your <code>email</code>: it will be used to connect to Indexity</li>
+        <li>your <code>password</code>: the password must contain at least 8 characters</li>
+      </ul>
+
+      <img src="/assets/documentation/signup.png" alt="signup" />
+
+      <div class="warning">
+        <p><strong>WARNING</strong></p>
+
+        <p>After creating your account, an administrator must manually activate your account.</p>
+
+        <p>Please contact your administrator to activate it.</p>
+      </div>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h2 id="login">Login</h2>
+
+      <p>If your account is activated, to login, click on the <code>Login</code> button in the top right corner of the website.</p>
+
+      <img src="/assets/documentation/login_button.png" alt="login button"/>
+
+      <p>After clicking on the <code>Login</code> button, a popup appears.</p>
+
+      <p>You have to specify :</p>
+      <ul>
+        <li>your <code>email</code> used to create your account</li>
+        <li>your <code>password</code></li>
+        <li>and click on the <code>LOGIN</code> button to connect to your Indexity account</li>
+      </ul>
+
+      <img src="/assets/documentation/login.png" alt="signup"/>
+
+      <div class="warning">
+        <p><strong>WARNING</strong></p>
+        <p>Sending emails is temporarily disabled on Indexity due to technical problems.</p>
+        <p>If you have forgotten your password, please send a message directly to your administrator.</p>
+      </div>
+    </article>
+
+
+  </section>
+
+  <!------------  VIDEOS  ------------>
+  <section class="row">
+    <h2 id="videos" class="col-12">Videos</h2>
+
+    <article class="col-12">
+      <p>First page after login/signup, accessible through the left panel.</p>
+
+      <ul>
+        <li>Displays all videos of the platform.</li>
+        <li>Scroll to load more of them.</li>
+        <li>Access a video: click on its thumbnail or on the play button at the bottom left of its preview.</li>
+        <li>See statistics on a video: click on <code>More info</code>.</li>
+      </ul>
+
+      <p>Video preview:</p>
+
+      <img src="/assets/documentation/video_preview.png" alt="video preview" />
+
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Add/delete a video</h3>
+
+      <ul>
+        <li><b>Add a video</b>: The button <code>Add videos</code> allows to upload one or multiple videos (only
+          available to moderators).</li>
+        <li><b>Delete a video</b>: The icon at the top right of each video preview allows to delete a video
+          (only available to moderators).</li>
+      </ul>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Searchbar/filters</h3>
+
+      <img src="/assets/documentation/video_searchbar.png" alt="video searchbar" />
+
+      <ul>
+        <li><b>video name</b>: Search videos named like the indicated video name.</li>
+        <li><b>annotation status</b>: Search videos having the indicated annotation status.</li>
+        <li><b>label name</b>: Search videos using the indicated label.</li>
+      </ul>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Bookmarks</h3>
+
+      <img src="/assets/documentation/bookmark.png" alt="bookmark" />
+
+      <ul>
+        <li><b>bookmark/unbookmark a video</b>: Click on the star at the bottom right of each video preview.</li>
+      </ul>
+
+      <img src="/assets/documentation/tabs.png" alt="tabs" />
+
+      <p>The bookmarked videos are accessible through the second tab of the videos view (<code>Bookmarked videos</code>).</p>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Annotation status</h3>
+
+      <p>To allow users to collaborate, a video can have the following statuses:</p>
+
+      <ul>
+        <li><code>NEW</code>: First status of an uploaded video. No annotation is required.</li>
+        <li><code>TODO</code>: Annotations are required on the video.</li>
+        <li><code>DOING</code>: Annotators are working on the video.</li>
+        <li><code>DONE</code>: The annotation work is done.</li>
+      </ul>
+
+      <p>Click on the current status to display available changes, and click on another status to make the transition.</p>
+
+      <p>Any user can:</p>
+      <ul>
+        <li>indicate annotations are being added to a video (<code>TODO</code>/<code>DONE</code> -> <code>DOING</code>).</li>
+        <li>indicate the work is done (<code>DOING</code> -> <code>DONE</code>).</li>
+      </ul>
+
+      <img src="/assets/documentation/annotation_states.png" alt="change annotation state" />
+
+      <p>The owner of the video can make any transition, in particular:</p>
+      <ul>
+        <li>require new annotations (set <code>TODO</code>) or cancel the demand (set <code>NEW</code>) .</li>
+      </ul>
+
+      <img src="/assets/documentation/annotation_states_owner.png" alt="change annotation state owner" />
+
+    </article>
+
+  </section>
+
+  <!------------  ANNOTATION  ------------>
+  <section class="row">
+    <h2 class="col-12" id="annotation">Annotation</h2>
+
+    <article class="col-12">
+      <h3>Manage the video</h3>
+
+      <p>For information on <b>keyboard shortcuts</b> and related features, "Help" is accessible through the left panel.</p>
+
+      <p>Download the video: a button <code>Download video</code> should be available at the bottom of the page. If it's not,
+        go to the Settings, and toggle <code>Activate Export</code> in the Annotations panel.</p>
+
+      <section class="row">
+        <article class="col">
+          <h4>Resize the video</h4>
+
+          <img src="/assets/documentation/resize_video.png" alt="resize video" />
+
+          <p>Click on the border between the video and the annotation toolbar and drag the mouse.</p>
+        </article>
+      </section>
+
+      <section class="row">
+        <article class="column">
+          <h4>Video toolbar</h4>
+
+          <img src="/assets/documentation/video_toolbar.png" alt="video toolbar" />
+
+          <p>Left of the toolbar - Video controls:</p>
+
+          <ul>
+            <li><b>Rewind to beginning</b>: Set the current time of the video to 0ms.</li>
+            <li><b>Play/pause</b>: Start/stop the video.</li>
+            <li><b>Next event</b>: Set the current time of the video to the beginning of the next annotation in the timelines.</li>
+            <li><b>Speed</b>: Change the video speed. Click to switch between available speeds (1, 2, 3, 4, 5, 0.2, 0.5).</li>
+          </ul>
+
+          <p>Middle of the toolbar - Time controls:</p>
+          <ul>
+            <li><b>Current time</b>: Default format is <code>hh:mm:ss</code>. Click to switch to seconds.</li>
+            <li><b>Set time</b>: Set current time of the video (in ms).</li>
+          </ul>
+
+          <p>Right of the toolbar:</p>
+          <ul>
+            <li><b>Toggle sidebar</b>: Display/hide annotation labels in the timelines.</li>
+            <li><b>Video duration</b>: Total duration of the video in format <code>hh:mm:ss</code>.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="row">
+        <article class="col">
+          <h4>Timelines</h4>
+
+          <img src="/assets/documentation/timelines.png" alt="timelines" />
+
+          <ul>
+            <li><b>Cursor</b>: The vertical blue bar represents the current time of the video. Click on the timelines to jump
+              at another timestamp.</li>
+            <li><b>Scroll</b>: If some labels and related annotations are hidden in the timelines, put your mouse above the
+              label names (left sidebar of the timelines) and scroll to go through all of them.</li>
+            <li><b>Zoom in/out</b>: To zoom on the annotations and allow more precision, place the cursor at the desired
+              timestamp, put your mouse above the timelines (not on the sidebar) and scroll.</li>
+          </ul>
+        </article>
+      </section>
+    </article>
+
+    <article class="col-12">
+      <h3>Manage annotations</h3>
+
+      <p>For information on <b>keyboard shortcuts</b> and related features, "Help" is accessible through the left panel.</p>
+
+      <p>Place your cursor between the beginning and end of an annotation to see its information in the right <br />
+        column.</p>
+
+      <img src="/assets/documentation/annotation.png" alt="annotation's information" />
+
+      <ul>
+        <li><b>Launch automatic tracking</b> (for spatial annotations only): An automatic tracker will use the annotation's
+          last position to try to find the structure's next positions. The produced annotations will appear on the timelines
+          every 5s during the process, and when it's finished. The tracker will stop if it doesn't find new positions
+          during 3s of the video, or if it reaches the video's end.</li>
+        <li><b>Hide/show</b>: Click to hide/show the annotation's bounding box.
+          <ul>
+            <li><b>Hide/show annotation</b>: Hide/show the current annotation.</li>
+            <li><b>Hide/show category</b>: Hide/show annotations corresponding to the label of the current annotation.</li>
+          </ul></li>
+        <li><b>Copy annotation</b>: Copy an annotation to paste it at another timestamp in the video: click on <code>Copy</code>,
+          change the current time of the video, and use <code>Ctrl</code> + <code>V</code> to paste the annotation.</li>
+        <li><b>Delete</b>: Hold down to delete the current annotation.</li>
+        <li><b>False positive</b>: Mark the current annotation as incorrect.</li>
+      </ul>
+    </article>
+
+    <article class="col-12">
+      <h3>Import/export annotations</h3>
+
+      <ul>
+        <li>Download the video's annotations (JSON file following Indexity format): a button <code>Export annotations</code> should
+          be available at the bottom of the page. If it's not, go to the Settings, and toggle <code>Activate Export</code> in
+          the Annotations panel.</li>
+        <li>Import annotations to the video (JSON file following Indexity format): a button <code>Import annotations</code> should
+          be available at the bottom of the page. If it's not, got to the Settings, and toggle <code>Activate JSON Import</code>.</li>
+      </ul>
+
+      <p>Annotation's format (see exported annotations for examples):</p>
+
+      <pre>
+      <code [innerHTML]="code"></code>
+    </pre>
+    </article>
+
+    <article class="col-12">
+      <h3>Create annotations</h3>
+
+      <img src="/assets/documentation/annotation_toolbar.png" alt="annotation toolbar" />
+
+      <ul>
+        <li><b>Cancel</b>: Cancels the creation/edition of an annotation if it has not been validated yet.</li>
+        <li><b>Draw</b>: Create a spatial annotation (<code>structure</code>).</li>
+        <li><b>Create</b>: Create a temporal annotation (<code>action</code>, <code>event</code> or <code>phase</code>).</li>
+        <li><b>Edit</b>: Edit a spatial annotation.</li>
+        <li><b>Validate</b>: Validate the creation/edition of an annotation.</li>
+      </ul>
+
+      <section class="row">
+        <h4>Create a spatial annotation:</h4>
+
+        <ul>
+          <li>Change the current time of the video to match the beginning time of the annotation.</li>
+          <li>Click on <code>Draw</code> (2nd button of the toolbar).</li>
+          <li>Click and drag the mouse until the rectangle fits the structure to annotate.</li>
+          <li>In the dialog, choose or create a label (name and color). Existing labels are suggested.</li>
+          <li>Change the current time of the video (play it, click on the timelines or set current time) and drag the bounding
+            box to its new location. Click on a border and drag the mouse to resize it. The video can be playing while
+            doing so.</li>
+          <li>Validate to save.</li>
+        </ul>
+
+        <p>If the video belongs to a video group linked to an ontology, its labels will be available in the dialog.</p>
+
+      </section>
+
+      <section class="row">
+        <h4>Create a temporal annotation</h4>
+
+        <ul>
+          <li>Change the current time of the video to match the beginning time of the annotation.</li>
+          <li>Click on <code>Create</code> (3rd button of the toolbar).</li>
+          <li>In the dialog, choose or create a label (name, color and type). Existing labels are suggested.</li>
+          <li>Change the current time of the video (play it, click on the timelines or set current time) to match
+            the end time of the annotation.</li>
+          <li>Validate to save.</li>
+        </ul>
+
+        <p>If the video belongs to a video group linked to an ontology, its labels will be available in the dialog.</p>
+      </section>
+
+      <section class="row">
+        <h4>Edit a spatial annotation</h4>
+
+        <ul>
+          <li>Change the current time of the video to be between the beginning and end time of a spatial annotation.</li>
+          <li>Click on <code>Edit</code> (4th button of the toolbar).</li>
+          <li>Click on the bounding box to edit.</li>
+          <li>Drag the bounding box to its new location or click on a border and drag the mouse to resize it.</li>
+          <li>To edit the annotation at other timestamps, just change the current time of the video (play it, click on
+            the timelines or set current time) and do the same operations. The video can be playing while doing so.
+            Don't go further than the end of the modified annotation.</li>
+          <li>Validate to save.</li>
+        </ul>
+      </section>
+
+      <section class="row">
+        <h4>Temporal cut of a spatial annotation</h4>
+
+        <img src="/assets/documentation/edit_annotation_toolbar.png" alt="annotation toolbar in edit mode" />
+
+        <ul>
+          <li>Change the current time of the video to be between the beginning and end time of a spatial annotation.</li>
+          <li>Click on <code>Edit</code> (4th button of the toolbar).</li>
+          <li>Click on the bounding box of the annotation to cut.</li>
+          <li>The button <code>Cut</code> appears (5th button of the toolbar).</li>
+          <li>Click on <code>Cut</code>. This operation doesn't need saving.</li>
+          <li>Validate to exit <code>Edit</code> mode.</li>
+        </ul>
+      </section>
+    </article>
+  </section>
+
+  <!------------  VIDEO GROUPS  ------------>
+  <section class="row">
+    <h2 id="video-groups" class="col-12">Video groups</h2>
+
+    <article class="col">
+      <p>Indexity allows you to place videos in groups. This makes it easier to sort your videos.
+        Soon it will be possible to restrict access to these groups to specific selected users.</p>
+
+      <p>You can access to the video groups by clicking on the "VIDEO GROUPS" link in the right bar.</p>
+
+      <img src="/assets/documentation/videogroups_bar.png" alt="video groups bar"/>
+
+      <p>To create a video group, click on the top left button <code>CREATE</code>.</p>
+
+      <img src="/assets/documentation/create_videogroups.png" alt="create video group"/>
+
+      <p>After clicking on the <code>CREATE</code> button, a popup appears.</p>
+
+      <p>You have to specify :</p>
+      <ul>
+        <li>a <code>group name</code> used to identify your group</li>
+        <li>a <code>group description</code> (optional) used to display some information about the group</li>
+        <li>click on the <code>SAVE</code> button to create the group</li>
+      </ul>
+
+      <img src="/assets/documentation/create_videgroups_popup.png" alt="create video group" />
+
+      <p>By default, your group is empty, you will have to add videos.</p>
+    </article>
+
+
+    <article class="col-12">
+      <h3>How to add or remove a video to your video-group</h3>
+
+      <p>Click on the <code>MANAGE</code> button of your video group</p>
+
+      <img src="/assets/documentation/manage_videogroups.png" alt="manage video group"/>
+
+      <p>A view opens with 2 lists:</p>
+      <ul>
+        <li>on the right, the list of the videos available in Indexity </li>
+        <li>on the left, the list of the videos in your group</li>
+      </ul>
+
+      <img src="/assets/documentation/edit_videogroups.png" alt="edit video group"/>
+
+      <p>To add a video in your group, click on the <code>+</code> button on the video in right view</p>
+
+      <img src="/assets/documentation/add_video_videogroups.png" alt="add video" />
+
+      <p>To remove a video in your group, click on the <code>-</code> button on the video in left view</p>
+
+      <img src="/assets/documentation/remove_video_videogroups.png" alt="remove video" />
+
+      <p>You can also drag and drop to add or delete a video in your group</p>
+    </article>
+
+    <article class="col-12">
+      <h3>How to edit your video-group</h3>
+
+      <ul>
+        <li>Click on the <code>MANAGE</code> button of your video group</li>
+      </ul>
+
+      <img src="/assets/documentation/manage_videogroups.png" alt="manage video group" />
+
+      <ul>
+        <li>Click on the <code>EDIT</code> button in the top right corner</li>
+      </ul>
+
+      <img src="/assets/documentation/edit_button_videogroups.png" alt="edit button video group" />
+
+      <ul>
+        <li>A window appears, you can edit :
+          <ul>
+            <li>video-group name</li>
+            <li>video-group description</li>
+            <li>associate an ontology to the video group (available only if ontologies exist)</li>
+          </ul></li>
+      </ul>
+
+      <img src="/assets/documentation/edit_popup_videogroups.png" alt="edit popup video group" />
+    </article>
+
+    <article class="col-12">
+      <h3>How to delete a video group</h3>
+
+      <ul>
+        <li>Click on the 3 vertical dots icon</li>
+        <li>A menu appears, click on "DELETE"</li>
+        <li>A popup appears asking you to confirm your choice to delete the group.</li>
+      </ul>
+
+      <img src="/assets/documentation/delete_videogroups.png" alt="delete video group" />
+
+      <p>When you delete a group, the videos that were present in the group aren't removed.
+        They are still available in the videos view.</p>
+    </article>
+  </section>
+
+  <!------------  ONTOLOGY  ------------>
+  <section class="row">
+      <h2 id="ontology" class="col-12">Ontology</h2>
+
+      <article class="col-12">
+        <p>In Indexity, an ontology is a set of labels.
+          You can access to the video groups by clicking on the "ONTOLOGY" link in the right bar.</p>
+
+        <img src="/assets/documentation/ontology_bar.png" alt="video groups bar" />
+
+        <p>To create an ontology, click on the top left button <code>CREATE</code>.</p>
+
+        <img src="/assets/documentation/create_ontology.png" alt="create video group" />
+
+        <p>After clicking on the <code>CREATE</code> button, a popup appears.</p>
+
+        <p>You have to specify :</p>
+        <ul>
+          <li><code>group name</code> used to identify your ontology</li>
+          <li><code>group description</code> (optional) used to display some information about the ontology</li>
+          <li>click on the <code>SAVE</code> button to create your ontology</li>
+        </ul>
+
+        <img src="/assets/documentation/create_ontology_popup.png" alt="create video group" />
+
+        <p>By default, your ontology is empty, you will have to add labels.</p>
+      </article>
+
+      <article class="col-12">
+        <h3>How to add or remove a label to your ontology</h3>
+
+        <p>Click on the <code>MANAGE</code> button of your video group</p>
+
+        <img src="/assets/documentation/manage_ontology.png" alt="manage video group" />
+
+        <p>A view opens with 2 lists:</p>
+        <ul>
+          <li>on the right, the list of the labels available in Indexity </li>
+          <li>on the left, the list of the labels in your ontology</li>
+        </ul>
+
+        <img src="/assets/documentation/edit_ontology.png" alt="edit video group" />
+
+        <p>To add a label in your ontology, click on the <code>+</code> button on the label in right view</p>
+
+        <img src="/assets/documentation/add_video_videogroups.png" alt="add label" />
+
+        <p>To remove a label in your ontology, click on the <code>-</code> button on the label in left view</p>
+
+        <img src="/assets/documentation/remove_video_videogroups.png" alt="remove label" />
+
+        <section class="row">
+          <article class="col">
+            <h4>How to create and add a label to your ontology</h4>
+
+            <p>Click on the <code>CREATE LABLE AND ADD TO GROUP</code> button in the top right corner</p>
+
+            <img src="/assets/documentation/create_label_add_ontology.png" alt="create label and add to ontology" />
+
+            <p>A window appears to create a new label :</p>
+            <ul>
+              <li>specify a label name and select a color (click on the colored disc to select a color)</li>
+              <li>
+                choose a label type:
+                <ul>
+                  <li>Action</li>
+                  <li>Event</li>
+                  <li>Phase</li>
+                  <li>Structure</li>
+                </ul>
+              </li>
+              <li>click on <code>Submit</code> button to create and add this new label in your ontology</li>
+            </ul>
+
+            <img src="/assets/documentation/create_label_popup_ontology.png" alt="create label and add to ontology popup" />
+          </article>
+        </section>
+
+      </article>
+
+    <article class="col-12">
+      <h3>How to delete an ontology</h3>
+
+      <ul>
+        <li>Click on the 3 vertical dots icon</li>
+        <li>A menu appears, click on "DELETE"</li>
+        <li>A popup appears asking you to confirm your choice to delete the ontology.</li>
+      </ul>
+
+      <img src="/assets/documentation/delete_ontology.png" alt="delete video group" />
+
+      <p>When you delete a group, the labels in the group aren't removed.</p>
+
+      <div class="warning">
+        <p><strong>WARNING</strong></p>
+        <p>you can't delete an ontology if there are associated video groups.</p>
+
+        <p>Before removing the ontology, you must delete the association in each video group:</p>
+
+        <p>
+          In the <code>EDIT</code> window of the video group (
+          <code>VIDEO GROUPS</code> > <code>MANAGE</code> > <code>EDIT</code>
+          ), select <code>NONE</code> in <code>Ontology</code> field.
+        </p>
+
+      </div>
+
+    </article>
+
+  </section>
+
+  <!------------  ROLES  ------------>
+  <section class="row">
+    <h2 id="roles" class="col-12">Roles</h2>
+
+    <article class="col-12">
+      <p>In Indexity there are 3 types of users, the <code>administrator</code>, the <code>moderator</code> and the <code>annotator</code>.
+        The <code>administrator</code> can do everything on the platform such as add or delete videos, add or delete users, etc.
+        A <code>moderator</code> can only add and annotate videos where an <code>annotator</code> can only annotate available videos.</p>
+
+      <table>
+        <tr>
+          <th></th>
+          <th>admin</th>
+          <th>moderator</th>
+          <th>annotator</th>
+        </tr>
+        <tr *ngFor="let action of actions | keyvalue: originalOrder">
+          <td>
+            {{action.key}}
+          </td>
+          <td *ngFor="let roleAccess of action.value">
+            <mat-icon *ngIf="roleAccess">done</mat-icon>
+          </td>
+        </tr>
+      </table>
+    </article>
+  </section>
+
+  <section class="row">
+    <h2 id="settings" class="col-12">Settings</h2>
+
+    <div class="col-12">
+      <p>Accessible through the left panel.</p>
+      <img src="/assets/documentation/settings_dialog.png" alt="settings view" />
+    </div>
+
+    <article class="col-12 col-lg-6">
+      <h3>Annotations</h3>
+      <ul>
+        <li><b>Activate JSON Import</b>: Display <code>Import annotations</code> in annotation view.</li>
+        <li><b>Activate Export</b>: Display <code>Download video</code> and <code>Export annotations</code> in annotation view.</li>
+      </ul>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Annotations' interpolation</h3>
+      <ul>
+        <li>
+          <b>Activate interpolation</b>: Use linear interpolation to complete spatial annotations' positions.
+          Display better annotations' movements in the video and extend exported annotations' content.
+        </li>
+        <li><b>Compute intermediate positions every ... ms</b>: Step used by the linear interpolation.</li>
+      </ul>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>Video</h3>
+      <ul>
+        <li>
+          <b>Frame step</b>: Define the duration of a frame (choose 60 to set the frame duration to 1/60).
+          Used for keyboard shortcuts (arrows allow moving cursor frame by frame).
+        </li>
+      </ul>
+    </article>
+
+    <article class="col-12 col-lg-6">
+      <h3>SVG labels</h3>
+      <ul>
+        <li><b>Show labels</b>: Display spatial annotations' label on the video.</li>
+      </ul>
+    </article>
+
+  </section>
+
+  <!------------  HELP  ------------>
+  <section class="row">
+    <h2 id="help" class="col-12">Help</h2>
+
+    <div class="col">
+      <p>Accessible through the left panel; describes all keyboard shortcuts and additional tools available.</p>
+
+      <img src="/assets/documentation/help_dialog.png" alt="help view"/>
+    </div>
+  </section>
+</div>

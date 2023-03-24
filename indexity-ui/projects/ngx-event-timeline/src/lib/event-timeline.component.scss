@@ -1,0 +1,54 @@
+@import 'colors';
+
+.main-container{
+  width: 100%;
+  background: $dark-2;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.event-tracks-container{
+  position: relative;
+  flex: 1 1 0;
+
+}
+
+
+
+.timeline-main-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.timeline-cursor {
+  z-index: 99;
+}
+
+.timeline-placeholder{
+
+  width: 100%;
+}
+
+
+@keyframes placeHolderShimmer{
+  0%{
+    background-position: -50% 0
+  }
+  100%{
+    background-position: 50% 0
+  }
+}
+
+.animated-background {
+  animation-duration: 800ms;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, $dark-2 0%, #282a2f 30%, $dark-2 60%);
+  background-size: 50%;
+  height: 90px;
+  position: relative;
+}

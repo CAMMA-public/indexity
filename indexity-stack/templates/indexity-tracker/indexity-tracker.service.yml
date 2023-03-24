@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: indexity-tracker-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8084
+      protocol: TCP
+      targetPort: 8084
+  selector:
+    app: indexity-tracker
+    tier: backend

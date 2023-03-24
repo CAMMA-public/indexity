@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "a1060c78-f30c-4b06-b92c-ca7fa7370315",
+    "name": "TrackerAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "track",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin-token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": 235,\n    \"shape\": {\n        \"positions\": {\n            \"0\": {\n                \"x\": 43.25,\n                \"y\": 53.4736,\n                \"width\": 23.4473,\n                \"height\": 37.0526\n            }\n        }\n    },\n    \"duration\": 33,\n    \"timestamp\": 0,\n    \"label\": {\n        \"name\": \"structure\",\n        \"color\": \"#007aff\",\n        \"type\": \"structure\"\n    },\n    \"videoId\": 115,\n    \"video\": {\n        \"id\": 115,\n        \"fileName\": \"aa29971d-dac2-4c17-a6a2-7c06e975fdfa.mp4\",\n        \"height\": 720,\n        \"width\": 1280\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{tracker-api}}/track",
+          "host": [
+            "{{tracker-api}}"
+          ],
+          "path": [
+            "track"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

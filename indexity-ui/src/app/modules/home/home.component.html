@@ -1,0 +1,139 @@
+
+<div class="home-container">
+  <app-loading-veil *ngIf="isLoading$ | async"></app-loading-veil>
+  <!--================Header Menu Area =================-->
+  <header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar  navbar-light">
+        <div class="container box_1620">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <a class="navbar-brand logo_h" [routerLink]="['/']"><img class="logo-img" src="assets/logo.png" alt=""></a>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav justify-content-end">
+
+            </ul>
+
+            <ul class="navbar-right">
+              <li class="nav-item">
+                <button data-cy="login-dialog-btn" (click)="onLoginDialog()" class="button button-header bg ">Login</button>
+                <button style="margin-left: 5px" data-cy="login-dialog-btn" (click)="onLoginDialog('signup')" class="button button-header bg ">Signup</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!--================Header Menu Area =================-->
+
+
+  <main class="side-main">
+    <!--================ Hero sm Banner start =================-->
+    <section class="hero-banner">
+      <div class="container">
+        <div class="row" >
+          <div class="col-lg-6">
+            <div class="hero-banner__img">
+              <img class="img-fluid zoomable-image"
+                   src="assets/main_screen.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 pt-3">
+            <div class="hero-banner__content">
+              <h1>Indexity Annotation Platform</h1>
+              <p>Cloud based, collaborative video annotation platform </p>
+              <ul class="feature-list">
+                <li>Video storage and streaming </li>
+                <li>Video list searching and filtering</li>
+                <li>Create annotations</li>
+                <li>Visualize annotations</li>
+                <li>Edit and update annotations</li>
+                <li>Collaborative mode allows for real time updates between users</li>
+                <li> Public API allows for automation on video & annotation management</li>
+                <li> Export/Import annotations from a formatted JSON file</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-5">
+
+
+          <div class="col-lg-12 section-intro text-center">
+
+            <span>
+              <img style="max-height: 100px; margin: 0 auto" class="img-fluid" src="assets/logo-ihu.png" alt="">
+            </span>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <!--================ Hero sm Banner end =================-->
+
+    <!--================ Feature section start =================-->
+    <section class="section-margin">
+      <div class="container">
+        <div class="section-intro  text-center">
+          <h2 class="section-intro__title mb-5">PLATFORM Overview</h2>
+          <img class="img-fluid mb-5 zoomable-image"
+               src="assets/platform_diag.png" alt="">
+          <p class="section-intro__subtitle">
+            Intuitive User Interface and flexible public API allow to read, write, update and extend the annotations database
+            <br>
+            by using automated algorithms and a user base
+          </p>
+        </div>
+
+      </div>
+    </section>
+    <!--================ Feature section end =================-->
+
+    <!--================ about section start =================-->
+    <section class="section-padding--small bg-magnolia-light">
+      <div class="container">
+        <div class="row no-gutters align-items-center">
+          <div class="col-md-5 mb-5 mb-md-0">
+            <div class="about__content">
+              <h2>Manage the videos</h2>
+              <p>Access a list of shared videos. Check their stats: See who already annotated it, how many annotations are there, which label are used...</p>
+              <p>Keep track of the videos status. Set the status of the videos you're going to annotate, you are annotating or you already annotated.</p>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="about__img">
+              <img  class="img-fluid zoomable-image" src="assets/videos-with-stats.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section-padding--small bg-magnolia">
+      <div class="container">
+        <div class="row align-items-center pt-xl-3 pb-xl-5">
+          <div class="col-lg-6">
+            <div class="solution__img text-center text-lg-left mb-4 mb-lg-0">
+              <img class="img-fluid zoomable-image" src="assets/video-annotation-view.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="solution__content">
+              <h2>Annotate videos</h2>
+              <p>Draw and label bounding boxes around the objects of interest in your videos and follow them while the video is playing.</p>
+              <p>Use edit mode to update the labels, positions and sizes or  to cut the annotations.</p>
+              <p>Export/Import annotations in JSON format.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>

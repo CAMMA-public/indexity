@@ -1,0 +1,11 @@
+<div class="main-container" [ngClass]="{'is-default': isDefaultTrack}"
+     [attr.data-cy]="'timeline-track-' + timelineEventType?.type">
+  <ngx-timeline-event
+    *ngFor="let e of timelineEvents; trackBy: eventTrackFn;"
+    [timelineEventType]="timelineEventType"
+    [timelineEvent]="e"
+    (click)="eventClick.emit($event)"
+    (hover)="eventHover.emit($event)"
+  ></ngx-timeline-event>
+</div>
+

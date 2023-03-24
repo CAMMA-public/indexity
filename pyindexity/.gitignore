@@ -1,0 +1,13 @@
+# build folder
+_build
+build
+dist
+
+# IDE
+.idea
+/.vscode
+
+# Python bytecode
+*.egg-info/
+__pycache__/
+*.py[cod]

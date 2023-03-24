@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      - PGDATA
+      - POSTGRES_DB
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+    ports:
+      - '5432:5432'
+    volumes:
+      - ${PWD}/storage/postgres:/var/lib/postgresql/data/pgdata
+    restart: on-failure:10
+  redis:
+    image: redis:5.0.3-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - ${PWD}/storage/redis:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+  api:
+    build:
+      context: ./indexity-api
+    ports:
+      - '8082:8082'
+    depends_on:
+      - db
+      - tracker-api
+    environment:
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - REDIS_HOST
+      - REDIS_PORT
+      - REDIS_ENABLED
+      - STRUCTURE_TRACKER_API_HOST
+      - STRUCTURE_TRACKER_API_PORT
+      - ENABLE_SWAGGER_UI
+    volumes:
+      - ${PWD}/storage:/indexity-api/storage:rw
+    restart: on-failure:10
+  ui:
+    build:
+      context: ./indexity-ui
+    depends_on:
+      - api
+    ports:
+      - '8083:80'
+  tracker-api:
+    build:
+      context: ./indexity-structure-tracker
+    ports:
+      - '8084:8084'
+    environment:
+      - INDEXITY_API_URL
+      - ANNOTATOR_EMAIL
+      - ANNOTATOR_PASSWORD
+      - VIDEOS_PATH
+      - SERVER_PORT
+    volumes:
+      - ${PWD}/storage/videos:/indexity-tracker/videos:ro
+    restart: on-failure:10
+  admin:
+    build:
+      context: ./indexity-admin-app
+    depends_on:
+      - api
+    ports:
+      - '8085:80'

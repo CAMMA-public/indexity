@@ -1,0 +1,24 @@
+# CI requirements
+flake8==3.8.3
+pylint==2.5.3
+
+# Package dependencies
+ffmpeg-python==0.2.0
+requests==2.24.0
+requests-toolbelt==0.9.1
+progressbar2==3.51.4
+
+# Package creation and handling
+pyparsing==2.4.7
+invoke==1.4.1
+setuptools==46.4.0
+setuptools-scm==4.1.2
+wheel==0.34.2
+
+# Package publication
+# Thoses packages fix the access to https urls for twine
+# See: https://github.com/pypa/twine/issues/273
+pyOpenSSL==19.1.0
+ndg-httpsclient==0.5.1
+pyasn1==0.4.8
+twine==3.2.0

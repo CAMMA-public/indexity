@@ -1,0 +1,16 @@
+<mat-form-field [floatLabel]="" class="search-form" appearance="outline">
+  <mat-label>{{ placeholder }}</mat-label>
+  <input class="search-field" matInput [formControl]="searchFieldControl">
+  <mat-icon *ngIf="!searchFieldControl.value.length" matSuffix>search</mat-icon>
+  
+  <button
+    *ngIf="searchFieldControl.value.length"
+    mat-button
+    matSuffix
+    mat-icon-button
+    class="search-field-clear-btn"
+    (click)="searchFieldControl.patchValue('')"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

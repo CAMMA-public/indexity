@@ -1,0 +1,38 @@
+
+.ontology-item {
+  position: relative;
+  margin-bottom: 5px;
+  cursor: pointer;
+  animation: fadein 350ms;
+
+  mat-card-header{
+    justify-content: space-between;
+    align-items: center;
+    // cancel mat-card-header-text default margin
+    margin-left:-16px;
+  }
+
+  mat-card-title {
+    margin-bottom: 10px;
+  }
+
+  .right-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+  }
+}
+
+.ontology-item.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.status-label {
+  font-size: 13px !important;
+  margin-right: 5px;
+}
+.status-label:hover {
+  filter: brightness(150%);
+}

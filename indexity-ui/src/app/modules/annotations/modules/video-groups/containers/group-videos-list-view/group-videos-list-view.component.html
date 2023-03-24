@@ -1,0 +1,50 @@
+<app-search-field
+  [initialValue]="groupVideosFilter$ | async"
+  (search)="onVideosFilterOfCurrentVideoGroup($event)"
+  [placeholder]="'Search in ' + (videoGroup$ | async)?.name"
+  data-cy="search-group-videos"
+></app-search-field>
+
+<div class="video-list" *ngIf="displayVideos$ | async">
+    <app-video-list
+      (onLoadNextBatch)="onGroupVideosListScrollEnd()"
+      [videos]="videos$ | async"
+      [currentUserId]="currentUserId$ | async"
+      [showHeader]="false"
+      [enableActions]="true"
+      [showStatus]="true"
+      [canManageVideos]="userCanManageVideosAndGroups$ | async"
+      [forceSmLayout]="false"
+      [videoStats]="videoStats$ | async"
+      [bookmarkedIds]="bookmarkedIds$ | async"
+      (setVideoAnnotationState)="onSetAnnotationProgressState($event)"
+      (deleteVideo)="onDelete($event)"
+      (renameVideo)="onRenameVideo($event.id, $event.name)"
+      (retryVideoStats)="onRetryVideoStats($event)"
+      (bookmark)="videoGroupsFacade.addVideoBookmark($event)"
+      (removeBookmark)="videoGroupsFacade.removeVideoBookmark($event)"
+      ></app-video-list>
+</div>
+
+<div
+  *ngIf="groupVideosIsLoading$ | async"
+  class="loading">
+  <mat-spinner></mat-spinner>
+  <span>Loading videos...</span>
+</div>
+
+<div
+  *ngIf="!(videos$ | async).length && !(isVideosFiltering$ | async) && !(groupVideosIsLoading$ | async)"
+  class="right-div"
+>
+  <div class="loading" *ngIf="(videoGroup$ | async) as group">
+    <mat-icon>warning</mat-icon>
+    <span>No videos for group {{group.name}}</span>
+    <button *ngIf="((userCanManageVideosAndGroups$ | async) || (currentUserId$ | async) === group.userId)"
+            style="margin-top: 10px;"
+            mat-flat-button
+            [attr.data-cy]="'group-' + group.id + '-add-videos-btn'"
+            color="accent"
+            (click)="accessEditPage(group.id)">ADD VIDEOS</button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "apiConfig": {
+    "baseUrl": "http://localhost:8082"
+  },
+  "socketConfig": {
+    "baseUrl": "http://localhost:8082",
+    "opts": {
+      "transports": "websocket"
+    }
+  },
+  "separator": "|"
+}

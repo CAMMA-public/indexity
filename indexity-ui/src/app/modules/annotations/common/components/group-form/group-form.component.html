@@ -1,0 +1,23 @@
+<form  class="form-container" [formGroup]="form" >
+  <mat-form-field>
+    <input data-cy="group-name-input" matInput placeholder="Group name" formControlName="name">
+    <mat-error *ngIf="form.controls['name'].hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea autosize data-cy="group-description-input" matInput placeholder="Group description" formControlName="description"></textarea>
+  </mat-form-field>
+  <mat-form-field *ngIf="data.availableLabelGroups && data.availableLabelGroups.length">
+    <mat-select placeholder="Ontology" formControlName="annotationLabelGroupId" >
+      <mat-option [value]="null"> --NONE-- </mat-option>
+      <mat-option *ngFor="let labelGroup of data.availableLabelGroups" [value]="labelGroup.id" >{{labelGroup.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div align="right" style="margin-top: 10px">
+    <button data-cy="group-cancel-btn" style="margin-right: 5px;" [mat-dialog-close]="null" mat-flat-button> CANCEL</button>
+    <button data-cy="group-save-btn" mat-flat-button [disabled]="form.invalid" (click)="onSubmit()" color="primary"> SAVE</button>
+  </div>
+</form>

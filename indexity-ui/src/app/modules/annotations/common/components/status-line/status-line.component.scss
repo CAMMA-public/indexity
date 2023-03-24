@@ -1,0 +1,93 @@
+@import "../../../../../../color-palette";
+
+.status-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-line-edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .status-label {
+    margin-left: 5px;
+  }
+}
+
+.status-label {
+  padding: 3px 13px;
+  color: #fff;
+
+  &.bordered {
+    border: 1px $light-1 solid !important;
+  }
+
+  &:not(.selected):disabled {
+    opacity: 0.5;
+  }
+
+  &.orange, &.green, &.blue, &.grey {
+    background-color: transparent;
+    &.hidden {
+      display: none;
+    }
+    &:not(:disabled):hover, &.selected {
+      padding: 5px 15px;
+      font-weight: 500;
+      border: none;
+    }
+  }
+
+   &.orange {
+      border: 2px solid $orange-3;
+      &:not(:disabled):hover, &.selected {
+        background: $orange-3;
+      }
+      &.selected:not(:disabled):hover {
+        border: 2px solid $orange-3;
+        padding: 3px 13px;
+        color: #fff;
+        background-color: transparent;
+      }
+    }
+
+    &.grey {
+      border: 2px solid $light-4;
+      &:not(:disabled):hover, &.selected {
+        background: $light-4;
+      }
+      &.selected:not(:disabled):hover {
+        border: 2px solid $light-4;
+        padding: 3px 13px;
+        color: #fff;
+        background-color: transparent;
+      }
+    }
+
+    &.blue {
+      border: 2px solid $blue-3;
+      &:not(:disabled):hover, &.selected {
+        background: $blue-3;
+      }
+      &.selected:not(:disabled):hover {
+        border: 2px solid $blue-3;
+        padding: 3px 13px;
+        color: #fff;
+        background-color: transparent;
+      }
+    }
+    &.green {
+      border: 2px solid $green-3;
+      &:not(:disabled):hover, &.selected {
+        background: $green-3;
+      }
+      &.selected:not(:disabled):hover {
+        border: 2px solid $green-3;
+        padding: 3px 13px;
+        color: #fff;
+        background-color: transparent;
+      }
+    } 
+}

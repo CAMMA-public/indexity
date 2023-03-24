@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: indexity-admin
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: indexity-admin
+      labels:
+        app: indexity-admin
+        tier: frontend
+        env: {{.Values.env}}
+        helm-revision: "{{ .Release.Revision }}"
+    spec:
+      containers:
+        - name: indexity-admin
+          image: "{{.Values.indexityAdminImage.registry}}/{{.Values.indexityAdminImage.repo}}:{{.Values.indexityAdminImage.tag}}"
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              port: admin-ui-port
+              path: /
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          ports:
+            - name: admin-ui-port
+              containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: indexity-admin-configs
+      imagePullSecrets:
+        - name: docker-reg-key
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: indexity-admin
+

@@ -1,0 +1,19 @@
+<app-drawer [isSideNavOpen]="isSideNavOpen$ | async"
+            [currentUsername]="currentUsername$ | async"
+            (openHelp)="openHelp()"
+            (openAbout)="openAbout()"
+            (openSettings)="openSettings()"
+            (sideNavClose)="closeSidenav()"
+            (logout)="onLogout()">
+  <div drawer-content class="max-height">
+    <div class="app-flex-fill app-column max-height">
+      <ngx-loading-bar [color]="'white'" [includeSpinner]="false"></ngx-loading-bar>
+      <app-toolbar
+        style="z-index: 300;"
+        [title]="title$ | async"
+        (toggleSideNav)="onSideNavToggle()"
+      ></app-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</app-drawer>
